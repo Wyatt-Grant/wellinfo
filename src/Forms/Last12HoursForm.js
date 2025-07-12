@@ -112,7 +112,7 @@ export default function Last12HoursForm() {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 1024}}
+      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
     >
       {textFields.map(({ label, name, help }) => {
         let value = formData4[name+'2'];
