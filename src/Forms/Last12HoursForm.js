@@ -7,7 +7,6 @@ import { RigUWIContext } from '../contexts/RigUWIContext';
 
 export default function Last12HoursForm() {
   const { formData4, setFormData4 } = useContext(RigUWIContext);
-  console.log(formData4);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
