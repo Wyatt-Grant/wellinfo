@@ -114,14 +114,27 @@ export default function Last12HoursForm() {
       }}
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 1024}}
     >
-      {textFields.map(({ label, name, help }) => (
+      {textFields.map(({ label, name, help }) => {
+        let value = formData4[name+'2'];
+        if (name == "topDriveSetPoint") {
+          value = parseInt(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
+                + parseInt(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+        }
+        if(name == "operationalTorqueBuffer") {
+          value = parseInt(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
+                + parseInt(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+
+          value += parseInt(formData4['actualPeakTorque2'] == '' ? 0 : formData4['actualPeakTorque2']);
+        }
+
+        return (
         <Fragment key={name}>
           <TextField
             disabled={name == "topDriveSetPoint" || name == "operationalTorqueBuffer"}
             sx={{ width: '32%' }}
             name={name+'2'}
             label={label}
-            value={formData4[name+'2']}
+            value={value}
             onChange={handleChange}
             fullWidth
           />
@@ -134,7 +147,8 @@ export default function Last12HoursForm() {
             helperText={help}
           />
         </Fragment>
-      ))}
+      )
+      })}
     </Box>
   );
 }
