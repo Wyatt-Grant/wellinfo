@@ -1,6 +1,7 @@
 import GeneralWellInfoForm from './Forms/GeneralWellInfoForm';
 import MonthlySafetyStandDownForm from './Forms/MonthlySafetyStandDownForm';
 import BasicWellDesignForm from './Forms/BasicWellDesignForm';
+import Last12HoursForm from './Forms/Last12HoursForm';
 import { Typography } from '@mui/material';
 import { RigUWIProvider } from './contexts/RigUWIContext';
 import { AdapterMoment  } from '@mui/x-date-pickers/AdapterMoment';
@@ -29,6 +30,13 @@ function App() {
             Basic Well Design
           </Typography>
           <BasicWellDesignForm></BasicWellDesignForm>
+          <br/>
+          <br/>
+          <br/>
+          <Typography variant="h3" gutterBottom>
+            Last 12 Hours
+          </Typography>
+          <Last12HoursForm></Last12HoursForm>
         </div>
       </RigUWIProvider>
     </LocalizationProvider>

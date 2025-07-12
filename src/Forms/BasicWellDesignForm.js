@@ -7,7 +7,6 @@ import { RigUWIContext } from '../contexts/RigUWIContext';
 
 export default function BasicWellDesignForm() {
   const { formData3, setFormData3 } = useContext(RigUWIContext);
-  console.log(formData3);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
