@@ -3,6 +3,7 @@ import MonthlySafetyStandDownForm from './Forms/MonthlySafetyStandDownForm';
 import BasicWellDesignForm from './Forms/BasicWellDesignForm';
 import Last12HoursForm from './Forms/Last12HoursForm';
 import CumulativeForm from './Forms/CumulativeForm';
+import CumulativeForm2 from './Forms/Cumulative2Form';
 import { Typography } from '@mui/material';
 import { RigUWIProvider } from './contexts/RigUWIContext';
 import { AdapterMoment  } from '@mui/x-date-pickers/AdapterMoment';
@@ -42,9 +43,16 @@ function App() {
           <br/>
           <br/>
           <Typography variant="h3" gutterBottom>
-            Cumulative
+            Cumulative (this well)
           </Typography>
           <CumulativeForm></CumulativeForm>
+          <br/>
+          <br/>
+          <br/>
+          <Typography variant="h3" gutterBottom>
+            Cumulative (Project)
+          </Typography>
+          <CumulativeForm2></CumulativeForm2>
         </div>
       </RigUWIProvider>
     </LocalizationProvider>
