@@ -16,8 +16,10 @@ export default function MonthlySafetyStandDownForm() {
   };
   
   const handleDateChange = (val, name) => {
-    console.log(val, name);
-    setFormData2((prev) => ({ ...prev, [name]: val.toString() }));
+    if (val) {
+      console.log(val, name);
+      setFormData2((prev) => ({ ...prev, [name]: val.toString() }));
+    }
   };
 
   const textFields = [
