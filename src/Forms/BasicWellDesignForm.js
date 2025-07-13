@@ -41,6 +41,10 @@ export default function BasicWellDesignForm() {
     },
   ];
 
+  if (formData3 === null) {
+    return;
+  }
+
   return (
     <Box
       component="form"

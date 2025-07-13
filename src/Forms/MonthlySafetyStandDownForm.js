@@ -45,6 +45,10 @@ export default function MonthlySafetyStandDownForm() {
     },
   ];
 
+  if (formData2 === null) {
+    return;
+  }
+
   return (
     <Box
       component="form"
@@ -55,6 +59,7 @@ export default function MonthlySafetyStandDownForm() {
     >
       {textFields.map(({ label, name, help }) => (
         <Fragment key={name}>
+          {console.log(formData2[name+'Date'])}
           <DatePicker
             name={name+'Date'}
             label={label + " Date"}

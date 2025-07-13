@@ -41,6 +41,10 @@ export default function Cumulative2Form() {
     },
   ];
 
+  if (formData6 === null) {
+    return;
+  }
+
   return (
     <Box
       component="form"

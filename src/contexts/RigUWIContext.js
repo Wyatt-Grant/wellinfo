@@ -148,12 +148,12 @@ export function RigUWIProvider({ children }) {
   // Load the rest of form data when rigUWI changes
   useEffect(() => {
     if (formData.rigUWI) {
-      const savedData = localStorage.getItem(`wellForm-${formData.rigUWI}`);
-      const savedData2 = localStorage.getItem(`wellForm-${formData.rigUWI}2`);
-      const savedData3 = localStorage.getItem(`wellForm-${formData.rigUWI}3`);
-      const savedData4 = localStorage.getItem(`wellForm-${formData.rigUWI}4`);
-      const savedData5 = localStorage.getItem(`wellForm-${formData.rigUWI}5`);
-      const savedData6 = localStorage.getItem(`wellForm-${formData.rigUWI}6`);
+      const savedData = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata`);
+      const savedData2 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata2`);
+      const savedData3 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata3`);
+      const savedData4 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata4`);
+      const savedData5 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata5`);
+      const savedData6 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata6`);
       if (savedData) {
         setFormData(JSON.parse(savedData));
         setFormData2(JSON.parse(savedData2));
@@ -295,32 +295,32 @@ export function RigUWIProvider({ children }) {
   // Save all form data (including rigUWI) to rig-specific localStorage
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}`, JSON.stringify(formData));
+      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata`, JSON.stringify(formData));
     }
   }, [formData]);
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}2`, JSON.stringify(formData2));
+      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata2`, JSON.stringify(formData2));
     }
   }, [formData2]);
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}3`, JSON.stringify(formData3));
+      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata3`, JSON.stringify(formData3));
     }
   }, [formData3]);
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}4`, JSON.stringify(formData4));
+      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata4`, JSON.stringify(formData4));
     }
   }, [formData4]);
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}5`, JSON.stringify(formData5));
+      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata5`, JSON.stringify(formData5));
     }
   }, [formData5]);
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}6`, JSON.stringify(formData6));
+      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata6`, JSON.stringify(formData6));
     }
   }, [formData6]);
 

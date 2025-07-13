@@ -101,6 +101,10 @@ export default function CumulativeForm() {
     },
   ];
 
+  if (formData5 === null) {
+    return;
+  }
+  
   const total = parseFloat(formData5['lostTime1'] == '' ? 0 : formData5['lostTime1'])
               + parseFloat(formData5['lostTime2'] == '' ? 0 : formData5['lostTime2'])
               + parseFloat(formData5['lostTime3'] == '' ? 0 : formData5['lostTime3'])

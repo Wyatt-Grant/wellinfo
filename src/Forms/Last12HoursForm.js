@@ -106,6 +106,10 @@ export default function Last12HoursForm() {
     },
   ];
 
+  if (formData4 === null) {
+    return;
+  }
+
   return (
     <Box
       component="form"

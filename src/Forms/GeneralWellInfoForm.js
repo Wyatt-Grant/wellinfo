@@ -41,6 +41,10 @@ export default function GeneralWellInfoForm() {
     },
   ];
 
+  if (formData === null) {
+    return;
+  }
+
   return (
     <Box
       component="form"
