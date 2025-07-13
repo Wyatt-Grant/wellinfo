@@ -117,14 +117,14 @@ export default function Last12HoursForm() {
       {textFields.map(({ label, name, help }) => {
         let value = formData4[name+'2'];
         if (name == "topDriveSetPoint") {
-          value = parseInt(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
-                + parseInt(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+          value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
+                + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
         }
         if(name == "operationalTorqueBuffer") {
-          value = parseInt(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
-                + parseInt(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+          value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
+                + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
 
-          value += parseInt(formData4['actualPeakTorque2'] == '' ? 0 : formData4['actualPeakTorque2']);
+          value -= parseFloat(formData4['actualPeakTorque2'] == '' ? 0 : formData4['actualPeakTorque2']);
         }
 
         return (

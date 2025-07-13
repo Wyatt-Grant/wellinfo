@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, Fragment } from 'react';
 import {
   TextField,
   Box,
@@ -50,16 +50,24 @@ export default function BasicWellDesignForm() {
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
     >
       {textFields.map(({ label, name, help }) => (
-        <TextField
-          sx={{ width: '48%' }}
-          label={label}
-          key={name}
-          name={name}
-          value={formData3[name]}
-          onChange={handleChange}
-          fullWidth
-          helperText={help}
-        />
+        <Fragment key={name}>
+          <TextField
+            sx={{ width: '48%' }}
+            label={label}
+            name={name}
+            value={formData3[name]}
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            sx={{ width: '48%' }}
+            name={name+'2'}
+            value={formData3[name+'2']}
+            onChange={handleChange}
+            fullWidth
+            helperText={help}
+          />
+        </Fragment>
       ))}
     </Box>
   );

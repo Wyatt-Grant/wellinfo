@@ -101,19 +101,19 @@ export default function CumulativeForm() {
     },
   ];
 
-  const total = parseInt(formData5['lostTime1'] == '' ? 0 : formData5['lostTime1'])
-              + parseInt(formData5['lostTime2'] == '' ? 0 : formData5['lostTime2'])
-              + parseInt(formData5['lostTime3'] == '' ? 0 : formData5['lostTime3'])
-              + parseInt(formData5['lostTime4'] == '' ? 0 : formData5['lostTime4'])
-              + parseInt(formData5['lostTime5'] == '' ? 0 : formData5['lostTime5'])
-              + parseInt(formData5['lostTime6'] == '' ? 0 : formData5['lostTime6'])
-              + parseInt(formData5['lostTime7'] == '' ? 0 : formData5['lostTime7'])
-              + parseInt(formData5['lostTime8'] == '' ? 0 : formData5['lostTime8'])
-              + parseInt(formData5['lostTime9'] == '' ? 0 : formData5['lostTime9'])
-              + parseInt(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
-              + parseInt(formData5['directionalMWDFailure'] == '' ? 0 : formData5['directionalMWDFailure'])
-              + parseInt(formData5['directionalRotorStatorFailure'] == '' ? 0 : formData5['directionalRotorStatorFailure'])
-              + parseInt(formData5['directionalDriveShaftFailure'] == '' ? 0 : formData5['directionalDriveShaftFailure']);
+  const total = parseFloat(formData5['lostTime1'] == '' ? 0 : formData5['lostTime1'])
+              + parseFloat(formData5['lostTime2'] == '' ? 0 : formData5['lostTime2'])
+              + parseFloat(formData5['lostTime3'] == '' ? 0 : formData5['lostTime3'])
+              + parseFloat(formData5['lostTime4'] == '' ? 0 : formData5['lostTime4'])
+              + parseFloat(formData5['lostTime5'] == '' ? 0 : formData5['lostTime5'])
+              + parseFloat(formData5['lostTime6'] == '' ? 0 : formData5['lostTime6'])
+              + parseFloat(formData5['lostTime7'] == '' ? 0 : formData5['lostTime7'])
+              + parseFloat(formData5['lostTime8'] == '' ? 0 : formData5['lostTime8'])
+              + parseFloat(formData5['lostTime9'] == '' ? 0 : formData5['lostTime9'])
+              + parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
+              + parseFloat(formData5['directionalMWDFailure'] == '' ? 0 : formData5['directionalMWDFailure'])
+              + parseFloat(formData5['directionalRotorStatorFailure'] == '' ? 0 : formData5['directionalRotorStatorFailure'])
+              + parseFloat(formData5['directionalDriveShaftFailure'] == '' ? 0 : formData5['directionalDriveShaftFailure']);
 
   return (
     <Box
@@ -135,6 +135,16 @@ export default function CumulativeForm() {
             fullWidth
             helperText={help}
             label={label}
+          />
+          <TextField
+            type={'text'}
+            sx={{ width: '48%' }}
+            name={name+'2'}
+            value={formData5[name+'2']}
+            onChange={handleChange}
+            fullWidth
+            helperText={help}
+            // label={label}
           />
         </Fragment>
       ))}
