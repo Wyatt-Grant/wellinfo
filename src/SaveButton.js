@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { Fragment, useContext } from 'react';
 import { RigUWIContext } from './contexts/RigUWIContext';
 import html2pdf from 'html2pdf.js/dist/html2pdf.min.js';
 import moment from 'moment';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export default function SaveButton() {
     const { formData, formData2, formData3, formData4, formData5, formData6 } = useContext(RigUWIContext);
@@ -68,6 +69,30 @@ export default function SaveButton() {
     ];
 
     const handleSavePDF = () => {
+        const wrapper = makeTable();
+        // Convert and save as PDF
+        html2pdf().from(wrapper).save();
+    }
+
+    const handlePreviewPDF = () => {
+        const wrapper = makeTable();
+        const htmlContent = typeof wrapper === 'string' ? wrapper : wrapper.outerHTML;
+        
+        const newWindow = window.open('', '_blank');
+        newWindow.document.write(`
+            <html>
+            <head>
+                <title>Preview PDF</title>
+            </head>
+            <body style="width: 216mm;">
+                ${htmlContent}
+            </body>
+            </html>
+        `);
+        newWindow.document.close();
+    }
+
+    const makeTable = () => {
         // Create a new table element
         const table = document.createElement('table');
         table.style.borderCollapse = 'collapse';
@@ -480,11 +505,6 @@ export default function SaveButton() {
             }
         }
 
-        // Format date for filename
-        const today = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Edmonton' };
-        const formattedDate = today.toLocaleDateString('en-CA', options);
-
         // Create a wrapper div to hold the table
         const wrapper = document.createElement('div');
         const title = document.createElement('h3');
@@ -495,30 +515,39 @@ export default function SaveButton() {
         const nameDiv = document.createElement('span');
         nameDiv.textContent = "5am & 5pm"
         title.appendChild(nameDiv);
-        // const timeDiv = document.createElement('span');
-        // timeDiv.textContent = formattedDate
-        // timeDiv.style.color = '#bbbbbb';
-        // title.appendChild(timeDiv);
 
         wrapper.appendChild(title);
         wrapper.appendChild(table);
 
-        // Convert and save as PDF
-        html2pdf().from(wrapper).save();
+       return wrapper;
     };
 
 
     return (
-        <Button
-        size="large"
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={handleSavePDF}
-        color="inherit"
-        >
-            <Download fontSize="large" />
-            Download
-        </Button>
+        <Fragment>
+            <Button
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleSavePDF}
+            color="inherit"
+            >
+                <Download fontSize="large" />
+                &nbsp;Download
+            </Button>
+            &nbsp;&nbsp;&nbsp;
+            <Button
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handlePreviewPDF}
+            color="inherit"
+            >
+                <VisibilityIcon fontSize="large" />
+                &nbsp;&nbsp;Preview
+            </Button>
+        </Fragment>
     );
 }

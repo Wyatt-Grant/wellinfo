@@ -36,7 +36,7 @@ function App() {
             <Button
               size="large"
               color="inherit"
-              sx={{textTransform: 'lowercase'}}
+              sx={{textTransform: 'lowercase', left: '-360px'}}
               onClick={() => col(0)}
               >
                 {collapsed[0] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
@@ -45,14 +45,12 @@ function App() {
                 </Typography>
             </Button>
             <br/>
-            <br/>
             {collapsed[0] && <GeneralWellInfoForm></GeneralWellInfoForm>}
-            <br/>
-            <br/>
+            <br />
             <Button
               size="large"
               color="inherit"
-              sx={{textTransform: 'lowercase'}}
+              sx={{textTransform: 'lowercase', left: '-274px'}}
               onClick={() => col(1)}
               >
                 {collapsed[1] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
@@ -61,14 +59,12 @@ function App() {
                 </Typography>
             </Button>
             <br/>
-            <br/>
             {collapsed[1] && <MonthlySafetyStandDownForm></MonthlySafetyStandDownForm>}
-            <br/>
             <br/>
             <Button
               size="large"
               color="inherit"
-              sx={{textTransform: 'lowercase'}}
+              sx={{textTransform: 'lowercase', left: '-350px'}}
               onClick={() => col(2)}
               >
                 {collapsed[2] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
@@ -77,14 +73,12 @@ function App() {
                 </Typography>
             </Button>
             <br/>
-            <br/>
             {collapsed[2] && <BasicWellDesignForm></BasicWellDesignForm>}
-            <br/>
             <br/>
             <Button
               size="large"
               color="inherit"
-              sx={{textTransform: 'lowercase'}}
+              sx={{textTransform: 'lowercase', left: '-383px'}}
               onClick={() => col(3)}
               >
                 {collapsed[3] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
@@ -93,14 +87,12 @@ function App() {
                 </Typography>
             </Button>
             <br/>
-            <br/>
             {collapsed[3] && <Last12HoursForm></Last12HoursForm>}
-            <br/>
             <br/>
             <Button
               size="large"
               color="inherit"
-              sx={{textTransform: 'lowercase'}}
+              sx={{textTransform: 'lowercase', left: '-320px'}}
               onClick={() => col(4)}
               >
                 {collapsed[4] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
@@ -109,14 +101,12 @@ function App() {
                 </Typography>
             </Button>
             <br/>
-            <br/>
             {collapsed[4] && <CumulativeForm></CumulativeForm>}
-            <br/>
             <br/>
             <Button
               size="large"
               color="inherit"
-              sx={{textTransform: 'lowercase'}}
+              sx={{textTransform: 'lowercase', left: '-320px'}}
               onClick={() => col(5)}
               >
                 {collapsed[5] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
@@ -124,7 +114,6 @@ function App() {
                   Cumulative (this well)
                 </Typography>
             </Button>
-            <br/>
             <br/>
             {collapsed[5] && <CumulativeForm2></CumulativeForm2>}
           </div>
