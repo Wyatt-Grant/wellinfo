@@ -85,6 +85,7 @@ export default function SaveButton() {
 
         // Populate table with 56 rows × 3 columns
         let sectionCounter = 0;
+        let value = 0;
         for (let i = 0; i < 56; i++) {
             const row = table.insertRow();
             for (let j = 0; j < 4; j++) {
@@ -125,16 +126,16 @@ export default function SaveButton() {
                                     break;
 
                                 case 6:
-                                    cell.textContent = moment(formData2['Crew1AndServicesDate']).format('MMMM Do, YYYY');
+                                    cell.textContent = formData2['Crew1AndServicesDate'] ? moment(formData2['Crew1AndServicesDate']).format('MMMM Do, YYYY') : '';
                                     break;
                                 case 7:
-                                    cell.textContent = moment(formData2['Crew2AndServicesDate']).format('MMMM Do, YYYY');
+                                    cell.textContent = formData2['Crew2AndServicesDate'] ? moment(formData2['Crew2AndServicesDate']).format('MMMM Do, YYYY') : '';
                                     break;
                                 case 8:
-                                    cell.textContent = moment(formData2['Crew3AndServicesDate']).format('MMMM Do, YYYY');
+                                    cell.textContent = formData2['Crew3AndServicesDate'] ? moment(formData2['Crew3AndServicesDate']).format('MMMM Do, YYYY') : '';
                                     break;
                                 case 9:
-                                    cell.textContent = moment(formData2['LastOBErecordableDate']).format('MMMM Do, YYYY');
+                                    cell.textContent = formData2['LastOBErecordableDate'] ? moment(formData2['LastOBErecordableDate']).format('MMMM Do, YYYY') : '';
                                     break;
                                     
                                 case 10:
@@ -166,13 +167,21 @@ export default function SaveButton() {
                                     cell.textContent = formData4['weakestBHAConnection2'];
                                     break;
                                 case 19:
-                                    cell.textContent = formData4['topDriveSetPoint2'];
+                                    value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
+                                        + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+
+                                    cell.textContent = value;
                                     break;
                                 case 20:
                                     cell.textContent = formData4['actualPeakTorque2'];
                                     break;
                                 case 21:
-                                    cell.textContent = formData4['operationalTorqueBuffer2'];
+                                    value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
+                                            + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+
+                                    value -= parseFloat(formData4['actualPeakTorque2'] == '' ? 0 : formData4['actualPeakTorque2']);
+
+                                    cell.textContent = value;
                                     break;
                                 case 22:
                                     cell.textContent = formData4['avgSlideROP2'];
@@ -486,10 +495,10 @@ export default function SaveButton() {
         const nameDiv = document.createElement('span');
         nameDiv.textContent = "5am & 5pm"
         title.appendChild(nameDiv);
-        const timeDiv = document.createElement('span');
-        timeDiv.textContent = formattedDate
-        timeDiv.style.color = '#bbbbbb';
-        title.appendChild(timeDiv);
+        // const timeDiv = document.createElement('span');
+        // timeDiv.textContent = formattedDate
+        // timeDiv.style.color = '#bbbbbb';
+        // title.appendChild(timeDiv);
 
         wrapper.appendChild(title);
         wrapper.appendChild(table);
