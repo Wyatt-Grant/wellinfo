@@ -48,7 +48,7 @@ export default function GeneralWellInfoForm() {
         e.preventDefault();
         console.log('Submitted:', formData);
       }}
-      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
+      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
       {textFields.map(({ label, name, help }) => (
         <TextField
@@ -60,6 +60,8 @@ export default function GeneralWellInfoForm() {
           onChange={handleChange}
           fullWidth
           helperText={help}
+          size="small"
+          margin="dense" 
         />
       ))}
 
@@ -80,6 +82,8 @@ export default function GeneralWellInfoForm() {
           onChange={handleChange}
           fullWidth
           helperText="EX: simops < 25m cold (Live well 20m away)"
+          size="small"
+          margin="dense" 
         />
       </FormControl>
 
@@ -102,6 +106,8 @@ export default function GeneralWellInfoForm() {
           onChange={handleChange}
           fullWidth
           helperText="EX: Lat 55.857640,   long -116.526818  surface location for Heli"
+          size="small"
+          margin="dense" 
         />
       </FormControl>
     </Box>

@@ -121,20 +121,27 @@ export default function CumulativeForm() {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
+      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
       {textFields.map(({ label, name, help }) => (
         <Fragment key={name}>
           <TextField
             type={label.includes('Lost time') ? 'number' : 'text'}
             disabled={name=='cumulativeLostTime'}
-            sx={{ width: '48%' }}
+            sx={{
+              width: '48%',
+              '& .MuiInputBase-root': {
+                backgroundColor: (name == "cumulativeLostTime") ? '#fff9c4' : '#ffffff',
+              }
+            }}
             name={name}
             value={name=='cumulativeLostTime' ? total : formData5[name]}
             onChange={handleChange}
             fullWidth
             helperText={help}
             label={label}
+            size="small"
+            margin="dense" 
           />
           <TextField
             type={'text'}
@@ -145,6 +152,8 @@ export default function CumulativeForm() {
             fullWidth
             helperText={help}
             // label={label}
+            size="small"
+            margin="dense" 
           />
         </Fragment>
       ))}

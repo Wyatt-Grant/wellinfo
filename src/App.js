@@ -40,7 +40,7 @@ function App() {
               onClick={() => col(0)}
               >
                 {collapsed[0] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h3" gutterBottom style={{position: 'relative', top: '9px'}}>
+                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
                   General Well Info
                 </Typography>
             </Button>
@@ -56,7 +56,7 @@ function App() {
               onClick={() => col(1)}
               >
                 {collapsed[1] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h3" gutterBottom style={{position: 'relative', top: '9px'}}>
+                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
                   Monthly Safety Stand Down
                 </Typography>
             </Button>
@@ -72,7 +72,7 @@ function App() {
               onClick={() => col(2)}
               >
                 {collapsed[2] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h3" gutterBottom style={{position: 'relative', top: '9px'}}>
+                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
                   Basic Well Design
                 </Typography>
             </Button>
@@ -88,7 +88,7 @@ function App() {
               onClick={() => col(3)}
               >
                 {collapsed[3] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h3" gutterBottom style={{position: 'relative', top: '9px'}}>
+                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
                   Last 12 Hours
                 </Typography>
             </Button>
@@ -104,7 +104,7 @@ function App() {
               onClick={() => col(4)}
               >
                 {collapsed[4] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h3" gutterBottom style={{position: 'relative', top: '9px'}}>
+                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
                   Cumulative (this well)
                 </Typography>
             </Button>
@@ -120,7 +120,7 @@ function App() {
               onClick={() => col(5)}
               >
                 {collapsed[5] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h3" gutterBottom style={{position: 'relative', top: '9px'}}>
+                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
                   Cumulative (this well)
                 </Typography>
             </Button>

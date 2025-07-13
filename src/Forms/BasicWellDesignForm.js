@@ -47,7 +47,7 @@ export default function BasicWellDesignForm() {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
+      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
       {textFields.map(({ label, name, help }) => (
         <Fragment key={name}>
@@ -58,6 +58,8 @@ export default function BasicWellDesignForm() {
             value={formData3[name]}
             onChange={handleChange}
             fullWidth
+            size="small"
+            margin="dense" 
           />
           <TextField
             sx={{ width: '48%' }}
@@ -66,6 +68,8 @@ export default function BasicWellDesignForm() {
             onChange={handleChange}
             fullWidth
             helperText={help}
+            size="small"
+            margin="dense" 
           />
         </Fragment>
       ))}

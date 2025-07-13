@@ -112,7 +112,7 @@ export default function Last12HoursForm() {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
+      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
       {textFields.map(({ label, name, help }) => {
         let value = formData4[name+'2'];
@@ -131,12 +131,19 @@ export default function Last12HoursForm() {
         <Fragment key={name}>
           <TextField
             disabled={name == "topDriveSetPoint" || name == "operationalTorqueBuffer"}
-            sx={{ width: '32%' }}
+            sx={{
+              width: '32%',
+              '& .MuiInputBase-root': {
+                backgroundColor: (name == "topDriveSetPoint" || name == "operationalTorqueBuffer") ? '#fff9c4' : '#ffffff',
+              }
+            }}
             name={name+'2'}
             label={label}
             value={value}
             onChange={handleChange}
             fullWidth
+            size="small"
+            margin="dense" 
           />
           <TextField
             sx={{ width: '64%' }}
@@ -145,6 +152,8 @@ export default function Last12HoursForm() {
             onChange={handleChange}
             fullWidth
             helperText={help}
+            size="small"
+            margin="dense" 
           />
         </Fragment>
       )

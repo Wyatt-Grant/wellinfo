@@ -47,7 +47,7 @@ export default function Cumulative2Form() {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
+      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
       {textFields.map(({ label, name, help }) => {
         return (
@@ -60,6 +60,8 @@ export default function Cumulative2Form() {
             onChange={handleChange}
             fullWidth
             label={label}
+            size="small"
+            margin="dense" 
           />
           <TextField
             sx={{ width: '60%' }}
@@ -68,6 +70,8 @@ export default function Cumulative2Form() {
             onChange={handleChange}
             fullWidth
             helperText={help}
+            size="small"
+            margin="dense" 
           />
         </Fragment>
       )

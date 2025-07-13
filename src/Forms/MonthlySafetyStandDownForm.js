@@ -51,7 +51,7 @@ export default function MonthlySafetyStandDownForm() {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 3, width: 768}}
+      sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
       {textFields.map(({ label, name, help }) => (
         <Fragment key={name}>
@@ -61,6 +61,12 @@ export default function MonthlySafetyStandDownForm() {
             sx={{ width: '48%' }}
             value={formData2[name+'Date'] ? moment(formData2[name+'Date']) : null}
             onChange={(val) => handleDateChange(val, name+'Date')}
+            slotProps={{
+              textField: {
+                size: 'small',     // compact height
+                margin: 'dense'    // reduce vertical spacing
+              }
+            }}
           />
           <TextField
             sx={{ width: '48%' }}
@@ -70,6 +76,8 @@ export default function MonthlySafetyStandDownForm() {
             onChange={handleChange}
             fullWidth
             helperText={help}
+            size="small"
+            margin="dense" 
           />
         </Fragment>
       ))}
