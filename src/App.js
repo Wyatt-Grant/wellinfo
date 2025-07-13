@@ -111,7 +111,7 @@ function App() {
               >
                 {collapsed[5] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
                 <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
-                  Cumulative (this well)
+                  Cumulative (project)
                 </Typography>
             </Button>
             <br/>
