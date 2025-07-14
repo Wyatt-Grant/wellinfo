@@ -17,7 +17,6 @@ export default function MonthlySafetyStandDownForm() {
   
   const handleDateChange = (val, name) => {
     if (val) {
-      console.log(val, name);
       setFormData2((prev) => ({ ...prev, [name]: val.toString() }));
     }
   };
@@ -59,7 +58,6 @@ export default function MonthlySafetyStandDownForm() {
     >
       {textFields.map(({ label, name, help }) => (
         <Fragment key={name}>
-          {console.log(formData2[name+'Date'])}
           <DatePicker
             name={name+'Date'}
             label={label + " Date"}

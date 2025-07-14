@@ -48,19 +48,14 @@ export default function SaveButton() {
         'Mud Losses (m3/100m)',
         'Water hauled… Water base drilling only (m3)',
         'Cumulative Lost time (hrs)',
-        'Lost time #1',
-        'Lost time #2',
-        'Lost time #3',
-        'Lost time #4',
-        'Lost time #5',
-        'Lost time #6',
-        'Lost time #7',
-        'Lost time #8',
-        'Lost time #9',
-        'Wait on Cementers (Lost time #10)',
-        'Directional - MWD Failure (Lost time #11)',
-        'Directional- Rotor/Stator Failure (Lost time #12)',
-        'Directional - Drive Shaft Failure (Lost time #13)',
+        'Lost times',
+    ];
+
+    const titles2 = [
+        'Wait on Cementers (Lost time)',
+        'Directional - MWD Failure (Lost time)',
+        'Directional- Rotor/Stator Failure (Lost time)',
+        'Directional - Drive Shaft Failure (Lost time)',
         'DP cumulative meters since last inspection (m)',
         'Wait on Cementers  (hrs)',
         'Directional - MWD Failure  (hrs)',
@@ -93,6 +88,9 @@ export default function SaveButton() {
     }
 
     const makeTable = () => {
+        const losttimesStart = 37;
+        const numberOfLostTimes = formData5['lostTimes'].length;
+
         // Create a new table element
         const table = document.createElement('table');
         table.style.borderCollapse = 'collapse';
@@ -111,7 +109,7 @@ export default function SaveButton() {
         // Populate table with 56 rows × 3 columns
         let sectionCounter = 0;
         let value = 0;
-        for (let i = 0; i < 56; i++) {
+        for (let i = 0; i < 47 + numberOfLostTimes; i++) {
             const row = table.insertRow();
             for (let j = 0; j < 4; j++) {
                 const cell = row.insertCell();
@@ -123,7 +121,7 @@ export default function SaveButton() {
                 if (i >=  10 && i <= 14) {
                     cell.style.background = '#eeeeee';
                 }
-                if (i >= 33 && i <= 50) {
+                if (i >= 33 && i <= 40 + numberOfLostTimes) {
                     cell.style.background = '#eeeeee';
                 }
                 if (j == 0) {
@@ -134,11 +132,11 @@ export default function SaveButton() {
                     if (i >=  10 && i <= 14) {
                         cell.style.background = '#DDDD00';
                     }
-                    if (i >= 33 && i <= 50) {
+                    if (i >= 33 && i <= 40 + numberOfLostTimes) {
                         cell.style.background = '#DDDD00';
                     }
                 }
-                if (j > 0 || i == 5 || i == 9 || i == 14 || i == 32 || i == 50 || i == 54) {
+                if (j > 0 || i == 5 || i == 9 || i == 14 || i == 32 || i == 40 + numberOfLostTimes || i == 46 + numberOfLostTimes) {
                     if (j == 0) {
                         const rotatedDiv = document.createElement('div');
 
@@ -155,7 +153,13 @@ export default function SaveButton() {
                         cell.appendChild(rotatedDiv);
                     } else {
                         if (j == 1) {
-                            cell.textContent = titles[i];
+                            if (i < 37) {
+                                cell.textContent = titles[i];
+                            } else if (i >= 37 && i < (losttimesStart + numberOfLostTimes)) {
+                                cell.textContent = "Lost Time";
+                            } else if (i >= (losttimesStart + numberOfLostTimes)) {
+                                cell.textContent = titles2[i - (losttimesStart + numberOfLostTimes)];
+                            }
                             cell.style.background = '#ffff00';
                             if (i >= 0 && i <= 5) {
                                 cell.style.background = '#DDDD00';
@@ -163,7 +167,7 @@ export default function SaveButton() {
                             if (i >=  10 && i <= 14) {
                                 cell.style.background = '#DDDD00';
                             }
-                            if (i >= 33 && i <= 50) {
+                            if (i >= 33 && i <= 40 + numberOfLostTimes) {
                                 cell.style.background = '#DDDD00';
                             }
                             if (i == 16 || i == 36) {
@@ -295,79 +299,38 @@ export default function SaveButton() {
                                 case 36:
                                     cell.style.background = '#DDDD00';
                                     cell.style.color = 'red';
-                                    const total = parseFloat(formData5['lostTime1'] == '' ? 0 : formData5['lostTime1'])
-                                        + parseFloat(formData5['lostTime2'] == '' ? 0 : formData5['lostTime2'])
-                                        + parseFloat(formData5['lostTime3'] == '' ? 0 : formData5['lostTime3'])
-                                        + parseFloat(formData5['lostTime4'] == '' ? 0 : formData5['lostTime4'])
-                                        + parseFloat(formData5['lostTime5'] == '' ? 0 : formData5['lostTime5'])
-                                        + parseFloat(formData5['lostTime6'] == '' ? 0 : formData5['lostTime6'])
-                                        + parseFloat(formData5['lostTime7'] == '' ? 0 : formData5['lostTime7'])
-                                        + parseFloat(formData5['lostTime8'] == '' ? 0 : formData5['lostTime8'])
-                                        + parseFloat(formData5['lostTime9'] == '' ? 0 : formData5['lostTime9'])
-                                        + parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
+                                    const total = parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
                                         + parseFloat(formData5['directionalMWDFailure'] == '' ? 0 : formData5['directionalMWDFailure'])
                                         + parseFloat(formData5['directionalRotorStatorFailure'] == '' ? 0 : formData5['directionalRotorStatorFailure'])
                                         + parseFloat(formData5['directionalDriveShaftFailure'] == '' ? 0 : formData5['directionalDriveShaftFailure']);
-
-                                    cell.textContent = total;
-                                    break;
-                                case 37:
-                                    cell.textContent = formData5['lostTime1'];
-                                    break;
-                                case 38:
-                                    cell.textContent = formData5['lostTime2'];
-                                    break;
-                                case 39:
-                                    cell.textContent = formData5['lostTime3'];
-                                    break;
-                                case 40:
-                                    cell.textContent = formData5['lostTime4'];
-                                    break;
-                                case 41:
-                                    cell.textContent = formData5['lostTime5'];
-                                    break;
-                                case 42:
-                                    cell.textContent = formData5['lostTime6'];
-                                    break;
-                                case 43:
-                                    cell.textContent = formData5['lostTime7'];
-                                    break;
-                                case 44:
-                                    cell.textContent = formData5['lostTime8'];
-                                    break;
-                                case 45:
-                                    cell.textContent = formData5['lostTime9'];
-                                    break;
-                                case 46:
-                                    cell.textContent = formData5['waitOnCementers'];
-                                    break;
-                                case 47:
-                                    cell.textContent = formData5['directionalMWDFailure'];
-                                    break;
-                                case 48:
-                                    cell.textContent = formData5['directionalRotorStatorFailure'];
-                                    break;
-                                case 49:
-                                    cell.textContent = formData5['directionalDriveShaftFailure'];
-                                    break;
-
-                                case 50:
-                                    cell.style.background = '#DDDD00';
-                                    cell.textContent = formData6['dpCumulativeMeters2'];
-                                    break;
-                                case 51:
-                                    cell.textContent = formData6['waitOnCementersHrs2'];
-                                    break;
-                                case 52:
-                                    cell.textContent = formData6['directionalMWDFailureHrs2'];
-                                    break;
-                                case 53:
-                                    cell.textContent = formData6['directionalRotorStatorFailureHrs2'];
-                                    break;
-                                case 54:
-                                    cell.textContent = formData6['directionalDriveShaftFailureHrs2'];
+                                    const totalLostTime = formData5.lostTimes.reduce(
+                                        (sum, val) => sum + parseFloat(val || 0),
+                                        0
+                                    ) + total;
+                                    cell.textContent = totalLostTime;
                                     break;
                                 default:
+                                    if (i >= 37 && i < (losttimesStart + numberOfLostTimes)) {
+                                        cell.textContent = formData5['lostTimes'][i-37];
+                                    } else if (i == (losttimesStart + numberOfLostTimes)) {
+                                        cell.textContent = formData5['waitOnCementers'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 1)) {
+                                        cell.textContent = formData5['directionalMWDFailure'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 2)) {
+                                        cell.textContent = formData5['directionalRotorStatorFailure'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 3)) {
+                                        cell.textContent = formData5['directionalDriveShaftFailure'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 4)) {
+                                        cell.textContent = formData6['dpCumulativeMeters2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 5)) {
+                                        cell.textContent = formData6['waitOnCementersHrs2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 6)) {
+                                        cell.textContent = formData6['directionalMWDFailureHrs2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 7)) {
+                                        cell.textContent = formData6['directionalRotorStatorFailureHrs2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 8)) {
+                                        cell.textContent = formData6['directionalDriveShaftFailureHrs2'];
+                                    }
                                     break;
                             }
                         }
@@ -495,62 +458,28 @@ export default function SaveButton() {
                                     cell.style.color = 'red';
                                     cell.textContent = formData5['cumulativeLostTime2'];
                                     break;
-                                case 37:
-                                    cell.textContent = formData5['lostTime12'];
-                                    break;
-                                case 38:
-                                    cell.textContent = formData5['lostTime22'];
-                                    break;
-                                case 39:
-                                    cell.textContent = formData5['lostTime32'];
-                                    break;
-                                case 40:
-                                    cell.textContent = formData5['lostTime42'];
-                                    break;
-                                case 41:
-                                    cell.textContent = formData5['lostTime52'];
-                                    break;
-                                case 42:
-                                    cell.textContent = formData5['lostTime62'];
-                                    break;
-                                case 43:
-                                    cell.textContent = formData5['lostTime72'];
-                                    break;
-                                case 44:
-                                    cell.textContent = formData5['lostTime82'];
-                                    break;
-                                case 45:
-                                    cell.textContent = formData5['lostTime92'];
-                                    break;
-                                case 46:
-                                    cell.textContent = formData5['waitOnCementers2'];
-                                    break;
-                                case 47:
-                                    cell.textContent = formData5['directionalMWDFailure2'];
-                                    break;
-                                case 48:
-                                    cell.textContent = formData5['directionalRotorStatorFailure2'];
-                                    break;
-                                case 49:
-                                    cell.textContent = formData5['directionalDriveShaftFailure2'];
-                                    break;
-
-                                case 50:
-                                    cell.textContent = formData6['dpCumulativeMeters'];
-                                    break;
-                                case 51:
-                                    cell.textContent = formData6['waitOnCementersHrs'];
-                                    break;
-                                case 52:
-                                    cell.textContent = formData6['directionalMWDFailureHrs'];
-                                    break;
-                                case 53:
-                                    cell.textContent = formData6['directionalRotorStatorFailureHrs'];
-                                    break;
-                                case 54:
-                                    cell.textContent = formData6['directionalDriveShaftFailureHrs'];
-                                    break;
                                 default:
+                                    if (i >= 37 && i < (losttimesStart + numberOfLostTimes)) {
+                                        cell.textContent = formData5['lostTimes2'][i-37];
+                                    } else if (i == (losttimesStart + numberOfLostTimes)) {
+                                        cell.textContent = formData5['waitOnCementers2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 1)) {
+                                        cell.textContent = formData5['directionalMWDFailure2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 2)) {
+                                        cell.textContent = formData5['directionalRotorStatorFailure2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 3)) {
+                                        cell.textContent = formData5['directionalDriveShaftFailure2'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 4)) {
+                                        cell.textContent = formData6['dpCumulativeMeters'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 5)) {
+                                        cell.textContent = formData6['waitOnCementersHrs'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 6)) {
+                                        cell.textContent = formData6['directionalMWDFailureHrs'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 7)) {
+                                        cell.textContent = formData6['directionalRotorStatorFailureHrs'];
+                                    } else if (i == (losttimesStart + numberOfLostTimes + 8)) {
+                                        cell.textContent = formData6['directionalDriveShaftFailureHrs'];
+                                    }
                                     break;
                             }
                         }
@@ -559,7 +488,7 @@ export default function SaveButton() {
                     }
                 }
                 
-                if (j > 0 || i == 6 || i == 10 || i == 15 || i == 33 || i == 51 || i == 55) {
+                if (j > 0 || i == 6 || i == 10 || i == 15 || i == 33 || i == 41 + numberOfLostTimes || i == 47 + numberOfLostTimes) {
                     if (j == 0) {
                         cell.style.borderTop = '1px solid black';
                     }

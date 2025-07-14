@@ -2,8 +2,11 @@ import { Fragment, useContext } from 'react';
 import {
   TextField,
   Box,
+  Button,
+  IconButton,
 } from '@mui/material';
 import { RigUWIContext } from '../contexts/RigUWIContext';
+import Delete from '@mui/icons-material/Delete';
 
 export default function CumulativeForm() {
   const { formData5, setFormData5 } = useContext(RigUWIContext);
@@ -11,6 +14,17 @@ export default function CumulativeForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData5((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleLostTimeChange = (e, index) => {
+    const { name, value } = e.target;
+
+    setFormData5((prev) => ({
+      ...prev,
+      [name]: prev[name].map((item, i) =>
+        i === index ? value : item
+      ),
+    }));
   };
 
   const textFields = [
@@ -34,49 +48,54 @@ export default function CumulativeForm() {
       name: 'cumulativeLostTime', 
       help: ''
     },
+    // { 
+    //   label: 'Lost time #1', 
+    //   name: 'lostTime1', 
+    //   help: 'EX: Hit Gravel @ 65m, circ and condition mud. Jul 06 F/ 18:45 - 19:30'
+    // },
+    // { 
+    //   label: 'Lost time #2', 
+    //   name: 'lostTime2', 
+    //   help: ''
+    // },
+    // { 
+    //   label: 'Lost time #3', 
+    //   name: 'lostTime3', 
+    //   help: ''
+    // },
+    // { 
+    //   label: 'Lost time #4', 
+    //   name: 'lostTime4', 
+    //   help: ''
+    // },
+    // { 
+    //   label: 'Lost time #5', 
+    //   name: 'lostTime5', 
+    //   help: ''
+    // },
+    // { 
+    //   label: 'Lost time #6', 
+    //   name: 'lostTime6', 
+    //   help: ''
+    // },
+    // { 
+    //   label: 'Lost time #7', 
+    //   name: 'lostTime7', 
+    //   help: ''
+    // },
+    // { 
+    //   label: 'Lost time #8', 
+    //   name: 'lostTime8', 
+    //   help: ''
+    // },
+    // { 
+    //   label: 'Lost time #9', 
+    //   name: 'lostTime9', 
+    //   help: ''
+    // },
     { 
-      label: 'Lost time #1', 
-      name: 'lostTime1', 
-      help: 'EX: Hit Gravel @ 65m, circ and condition mud. Jul 06 F/ 18:45 - 19:30'
-    },
-    { 
-      label: 'Lost time #2', 
-      name: 'lostTime2', 
-      help: ''
-    },
-    { 
-      label: 'Lost time #3', 
-      name: 'lostTime3', 
-      help: ''
-    },
-    { 
-      label: 'Lost time #4', 
-      name: 'lostTime4', 
-      help: ''
-    },
-    { 
-      label: 'Lost time #5', 
-      name: 'lostTime5', 
-      help: ''
-    },
-    { 
-      label: 'Lost time #6', 
-      name: 'lostTime6', 
-      help: ''
-    },
-    { 
-      label: 'Lost time #7', 
-      name: 'lostTime7', 
-      help: ''
-    },
-    { 
-      label: 'Lost time #8', 
-      name: 'lostTime8', 
-      help: ''
-    },
-    { 
-      label: 'Lost time #9', 
-      name: 'lostTime9', 
+      label: 'Lost times', 
+      name: 'lostTimes', 
       help: ''
     },
     { 
@@ -105,19 +124,42 @@ export default function CumulativeForm() {
     return;
   }
   
-  const total = parseFloat(formData5['lostTime1'] == '' ? 0 : formData5['lostTime1'])
-              + parseFloat(formData5['lostTime2'] == '' ? 0 : formData5['lostTime2'])
-              + parseFloat(formData5['lostTime3'] == '' ? 0 : formData5['lostTime3'])
-              + parseFloat(formData5['lostTime4'] == '' ? 0 : formData5['lostTime4'])
-              + parseFloat(formData5['lostTime5'] == '' ? 0 : formData5['lostTime5'])
-              + parseFloat(formData5['lostTime6'] == '' ? 0 : formData5['lostTime6'])
-              + parseFloat(formData5['lostTime7'] == '' ? 0 : formData5['lostTime7'])
-              + parseFloat(formData5['lostTime8'] == '' ? 0 : formData5['lostTime8'])
-              + parseFloat(formData5['lostTime9'] == '' ? 0 : formData5['lostTime9'])
-              + parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
+
+
+  const total = parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
               + parseFloat(formData5['directionalMWDFailure'] == '' ? 0 : formData5['directionalMWDFailure'])
               + parseFloat(formData5['directionalRotorStatorFailure'] == '' ? 0 : formData5['directionalRotorStatorFailure'])
               + parseFloat(formData5['directionalDriveShaftFailure'] == '' ? 0 : formData5['directionalDriveShaftFailure']);
+  
+  const totalLostTime = formData5.lostTimes.reduce(
+    (sum, val) => sum + parseFloat(val || 0),
+    0
+  ) + total;
+
+  console.log("totalLostTime: " + totalLostTime);
+
+            
+  const addLostTime = () => {
+    setFormData5((prev) => ({
+      ...prev,
+      lostTimes: [...prev.lostTimes, ''],
+    }));
+    setFormData5((prev) => ({
+      ...prev,
+      lostTimes2: [...prev.lostTimes2, ''],
+    }));
+  }
+
+  const removeLostTime = (index) => {
+    setFormData5((prev) => ({
+      ...prev,
+      lostTimes: prev.lostTimes.filter((_, i) => i !== index),
+    }));
+    setFormData5((prev) => ({
+      ...prev,
+      lostTimes2: prev.lostTimes2.filter((_, i) => i !== index),
+    }));
+  };
 
   return (
     <Box
@@ -135,6 +177,54 @@ export default function CumulativeForm() {
           multiFiled = true;
         }
 
+        if (name == "lostTimes") {
+          if (formData5[name].length == 0) {
+            return (<>
+              <Button onClick={addLostTime}>Add Lost time</Button>
+              <div style={{ width: '48%' }}></div>
+            </>);
+          }
+          return formData5[name].map((item, index) => (
+            <Fragment key={index}>
+              <TextField
+                type="number"
+                disabled={name === 'cumulativeLostTime'}
+                sx={{
+                  width: '44%',
+                  '& .MuiInputBase-root': {
+                    backgroundColor: name === 'cumulativeLostTime' ? '#fff9c4' : '#ffffff',
+                  },
+                }}
+                name={name}
+                value={item}
+                onChange={(e) => handleLostTimeChange(e, index)}
+                fullWidth
+                label={label}
+                size="small"
+                margin="dense"
+                multiline
+              />
+              <TextField
+                type="text"
+                sx={{ width: '48%' }}
+                name={`${name}2`}
+                value={formData5[`${name}2`][index]}
+                onChange={(e) => handleLostTimeChange(e, index)}
+                fullWidth
+                helperText={help}
+                size="small"
+                margin="dense"
+                multiline
+              />
+              <IconButton onClick={() => removeLostTime(index)}><Delete fontSize="large" /></IconButton>
+              {formData5[name].length == index+1 && (<>
+                <Button onClick={addLostTime}>Add Lost time</Button>
+                <div style={{ width: '48%' }}></div>
+              </>)}
+            </Fragment>
+          ));
+        }
+
         return (
           <Fragment key={name}>
             <TextField
@@ -147,7 +237,7 @@ export default function CumulativeForm() {
                 }
               }}
               name={name}
-              value={name=='cumulativeLostTime' ? total : formData5[name]}
+              value={name=='cumulativeLostTime' ? totalLostTime : formData5[name]}
               onChange={handleChange}
               fullWidth
               label={label}
