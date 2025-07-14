@@ -54,6 +54,11 @@ export default function Cumulative2Form() {
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
       {textFields.map(({ label, name, help }) => {
+        let multiFiled = false;
+        if (name == "dpCumulativeMeters") {
+          multiFiled = true;
+        }
+
         return (
         <Fragment key={name}>
           <TextField
@@ -68,7 +73,7 @@ export default function Cumulative2Form() {
             margin="dense" 
             multiline
           />
-          <TextField
+          {!multiFiled && <TextField
             sx={{ width: '60%' }}
             name={name}
             value={formData6[name]}
@@ -78,7 +83,10 @@ export default function Cumulative2Form() {
             size="small"
             margin="dense" 
             multiline
-          />
+          />}
+          {multiFiled && <div
+            style={{ width: '60%' }}
+          />}
         </Fragment>
       )
       })}

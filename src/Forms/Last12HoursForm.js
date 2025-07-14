@@ -74,15 +74,15 @@ export default function Last12HoursForm() {
       name: 'mudLosses',
       help: ''
     },
-    {
-      label: '# of red task procedures followed (minimum 1/shift)',
-      name: 'redTaskProcedures',
-      help: 'Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig'
-    },
     { 
       label: 'Safety Incidents (describe)', 
       name: 'safetyIncidents', 
       help: ''
+    },
+    {
+      label: '# of red task procedures followed (minimum 1/shift)',
+      name: 'redTaskProcedures',
+      help: 'Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig'
     },
     {
       label: 'Downhole BHA/Mud Problems (describe)', 
@@ -131,6 +131,15 @@ export default function Last12HoursForm() {
           value -= parseFloat(formData4['actualPeakTorque2'] == '' ? 0 : formData4['actualPeakTorque2']);
         }
 
+        let multiFiled = false;
+        if (name == "metersDrilled"
+          || name == "bhaMudProblems"
+          || name == "reservoirPlacementProblems"
+          || name == "surfaceProblems"
+          || name == "performanceLimiters") {
+          multiFiled = true;
+        }
+
         return (
         <Fragment key={name}>
           <TextField
@@ -146,21 +155,25 @@ export default function Last12HoursForm() {
             value={value}
             onChange={handleChange}
             fullWidth
-            size="small"
-            margin="dense" 
-            multiline
-          />
-          <TextField
-            sx={{ width: '64%' }}
-            name={name}
-            value={formData4[name]}
-            onChange={handleChange}
-            fullWidth
             helperText={help}
             size="small"
             margin="dense" 
             multiline
           />
+          {multiFiled &&
+            <TextField
+              sx={{ width: '64%' }}
+              name={name}
+              value={formData4[name]}
+              onChange={handleChange}
+              fullWidth
+              helperText={help}
+              size="small"
+              margin="dense" 
+              multiline
+            />
+          }
+          {name == "redTaskProcedures" && <div style={{width: '64%'}}></div>}
         </Fragment>
       )
       })}

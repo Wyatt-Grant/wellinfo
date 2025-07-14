@@ -127,42 +127,50 @@ export default function CumulativeForm() {
       }}
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
-      {textFields.map(({ label, name, help }) => (
-        <Fragment key={name}>
-          <TextField
-            type={label.includes('Lost time') ? 'number' : 'text'}
-            disabled={name=='cumulativeLostTime'}
-            sx={{
-              width: '48%',
-              '& .MuiInputBase-root': {
-                backgroundColor: (name == "cumulativeLostTime") ? '#fff9c4' : '#ffffff',
-              }
-            }}
-            name={name}
-            value={name=='cumulativeLostTime' ? total : formData5[name]}
-            onChange={handleChange}
-            fullWidth
-            helperText={help}
-            label={label}
-            size="small"
-            margin="dense" 
-            multiline
-          />
-          <TextField
-            type={'text'}
-            sx={{ width: '48%' }}
-            name={name+'2'}
-            value={formData5[name+'2']}
-            onChange={handleChange}
-            fullWidth
-            helperText={help}
-            // label={label}
-            size="small"
-            margin="dense" 
-            multiline
-          />
-        </Fragment>
-      ))}
+      {textFields.map(({ label, name, help }) => {
+        let multiFiled = false;
+        if (name == "mudLossesPer100m"
+          || name == "waterHauled"
+          || name == "cumulativeLostTime") {
+          multiFiled = true;
+        }
+
+        return (
+          <Fragment key={name}>
+            <TextField
+              type={label.includes('Lost time') ? 'number' : 'text'}
+              disabled={name=='cumulativeLostTime'}
+              sx={{
+                width: multiFiled ? '32%' : '48%',
+                '& .MuiInputBase-root': {
+                  backgroundColor: (name == "cumulativeLostTime") ? '#fff9c4' : '#ffffff',
+                }
+              }}
+              name={name}
+              value={name=='cumulativeLostTime' ? total : formData5[name]}
+              onChange={handleChange}
+              fullWidth
+              label={label}
+              size="small"
+              margin="dense" 
+              multiline
+            />
+            {!multiFiled &&
+            <TextField
+              type={'text'}
+              sx={{ width: '48%' }}
+              name={name+'2'}
+              value={formData5[name+'2']}
+              onChange={handleChange}
+              fullWidth
+              helperText={help}
+              // label={label}
+              size="small"
+              margin="dense" 
+              multiline
+            />}
+          </Fragment>
+      )})}
     </Box>
   );
 }

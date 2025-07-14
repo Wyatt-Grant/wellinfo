@@ -426,45 +426,45 @@ export default function SaveButton() {
                                     cell.textContent = formData4['metersDrilled'];
                                     break;
                                 case 16:
-                                    cell.textContent = formData4['formationDrilled'];
+                                    cell.textContent = "BFS, Peace River, Harmon, Falher A,B,C,D,E,F,F shale cap, Wilrich";
                                     break;
                                 case 17:
-                                    cell.textContent = formData4['offBottomTorque'];
+                                    cell.textContent = "<--- measured off bottom w/ stationary pipe in good hole conditions & smooth torque (tourly)";
                                     break;
                                 case 18:
                                     cell.style.color = 'red';
-                                    cell.textContent = formData4['weakestBHAConnection'];
+                                    cell.textContent = "<--- verify with directional hand (tourly)";
                                     break;
                                 case 19:
                                     cell.style.color = 'red';
-                                    cell.textContent = formData4['topDriveSetPoint'];
+                                    cell.textContent = "<--- WSS to verify maximum top drive torque setting (tourly)";
                                     break;
                                 case 20:
                                     cell.style.color = 'red';
-                                    cell.textContent = formData4['actualPeakTorque'];
+                                    cell.textContent = "<--- measured on bottom drilling (on-going)";
                                     break;
                                 case 21:
                                     cell.style.color = 'red';
-                                    cell.textContent = formData4['operationalTorqueBuffer'];
+                                    cell.textContent = "<--- No negative numbers allowed!!!";
                                     break;
                                 case 22:
-                                    cell.textContent = formData4['avgSlideROP'];
+                                    cell.textContent = '';
                                     break;
                                 case 23:
-                                    cell.textContent = formData4['avgRotaryROP'];
+                                    cell.textContent = '';
                                     break;
                                 case 24:
-                                    cell.textContent = formData4['mudType'];
+                                    cell.textContent = '';
                                     break;
                                 case 25:
-                                    cell.textContent = formData4['mudWeight'];
+                                    cell.textContent = '';
                                     break;
                                 case 26:
-                                    cell.textContent = formData4['mudLosses'];
+                                    cell.textContent = '';
                                     break;
                                 case 27:
                                     cell.style.color = 'red';
-                                    cell.textContent = formData4['redTaskProcedures'];
+                                    cell.textContent = "Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig";
                                     break;
                                 case 28:
                                     cell.textContent = formData4['safetyIncidents'];
