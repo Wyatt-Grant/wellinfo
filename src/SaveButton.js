@@ -272,19 +272,19 @@ export default function SaveButton() {
                                     cell.textContent = formData4['redTaskProcedures2'];
                                     break;
                                 case 28:
-                                    cell.textContent = formData4['safetyIncidents2'];
+                                    cell.textContent = '';
                                     break;
                                 case 29:
-                                    cell.textContent = formData4['bhaMudProblems2'];
+                                    cell.textContent = '';
                                     break;
                                 case 30:
-                                    cell.textContent = formData4['reservoirPlacementProblems2'];
+                                    cell.textContent = '';
                                     break;
                                 case 31:
-                                    cell.textContent = formData4['surfaceProblems2'];
+                                    cell.textContent = '';
                                     break;
                                 case 32:
-                                    cell.textContent = formData4['performanceLimiters2'];
+                                    cell.textContent = '';
                                     break;
 
                                 case 33:
@@ -430,19 +430,19 @@ export default function SaveButton() {
                                     cell.textContent = "Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig";
                                     break;
                                 case 28:
-                                    cell.textContent = formData4['safetyIncidents'];
+                                    cell.textContent = formData4['safetyIncidents2'];
                                     break;
                                 case 29:
-                                    cell.textContent = formData4['bhaMudProblems'];
+                                    cell.textContent = formData4['bhaMudProblems2'];
                                     break;
                                 case 30:
-                                    cell.textContent = formData4['reservoirPlacementProblems'];
+                                    cell.textContent = formData4['reservoirPlacementProblems2'];
                                     break;
                                 case 31:
-                                    cell.textContent = formData4['surfaceProblems'];
+                                    cell.textContent = formData4['surfaceProblems2'];
                                     break;
                                 case 32:
-                                    cell.textContent = formData4['performanceLimiters'];
+                                    cell.textContent = formData4['performanceLimiters2'];
                                     break;
 
                                 case 33:
