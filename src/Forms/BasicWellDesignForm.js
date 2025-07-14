@@ -64,6 +64,7 @@ export default function BasicWellDesignForm() {
             fullWidth
             size="small"
             margin="dense" 
+            multiline
           />
           <TextField
             sx={{ width: '48%' }}
@@ -74,6 +75,7 @@ export default function BasicWellDesignForm() {
             helperText={help}
             size="small"
             margin="dense" 
+            multiline
           />
         </Fragment>
       ))}

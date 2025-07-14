@@ -65,7 +65,8 @@ export default function GeneralWellInfoForm() {
           fullWidth
           helperText={help}
           size="small"
-          margin="dense" 
+          margin="dense"
+          multiline
         />
       ))}
 
@@ -88,6 +89,7 @@ export default function GeneralWellInfoForm() {
           helperText="EX: simops < 25m cold (Live well 20m away)"
           size="small"
           margin="dense" 
+          multiline
         />
       </FormControl>
 
@@ -112,6 +114,7 @@ export default function GeneralWellInfoForm() {
           helperText="EX: Lat 55.857640,   long -116.526818  surface location for Heli"
           size="small"
           margin="dense" 
+          multiline
         />
       </FormControl>
     </Box>

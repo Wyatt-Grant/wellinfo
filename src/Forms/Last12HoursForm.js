@@ -148,6 +148,7 @@ export default function Last12HoursForm() {
             fullWidth
             size="small"
             margin="dense" 
+            multiline
           />
           <TextField
             sx={{ width: '64%' }}
@@ -158,6 +159,7 @@ export default function Last12HoursForm() {
             helperText={help}
             size="small"
             margin="dense" 
+            multiline
           />
         </Fragment>
       )

@@ -66,6 +66,7 @@ export default function Cumulative2Form() {
             label={label}
             size="small"
             margin="dense" 
+            multiline
           />
           <TextField
             sx={{ width: '60%' }}
@@ -76,6 +77,7 @@ export default function Cumulative2Form() {
             helperText={help}
             size="small"
             margin="dense" 
+            multiline
           />
         </Fragment>
       )

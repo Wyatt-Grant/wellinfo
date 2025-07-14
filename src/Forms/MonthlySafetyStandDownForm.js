@@ -63,7 +63,7 @@ export default function MonthlySafetyStandDownForm() {
           <DatePicker
             name={name+'Date'}
             label={label + " Date"}
-            sx={{ width: '48%' }}
+            sx={{ width: '28%' }}
             value={formData2[name+'Date'] ? moment(formData2[name+'Date']) : null}
             onChange={(val) => handleDateChange(val, name+'Date')}
             slotProps={{
@@ -74,7 +74,7 @@ export default function MonthlySafetyStandDownForm() {
             }}
           />
           <TextField
-            sx={{ width: '48%' }}
+            sx={{ width: '68%' }}
             label={label}
             name={name}
             value={formData2[name]}
@@ -83,6 +83,7 @@ export default function MonthlySafetyStandDownForm() {
             helperText={help}
             size="small"
             margin="dense" 
+            multiline
           />
         </Fragment>
       ))}

@@ -146,6 +146,7 @@ export default function CumulativeForm() {
             label={label}
             size="small"
             margin="dense" 
+            multiline
           />
           <TextField
             type={'text'}
@@ -158,6 +159,7 @@ export default function CumulativeForm() {
             // label={label}
             size="small"
             margin="dense" 
+            multiline
           />
         </Fragment>
       ))}
