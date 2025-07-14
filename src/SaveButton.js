@@ -126,6 +126,18 @@ export default function SaveButton() {
                 if (i >= 33 && i <= 50) {
                     cell.style.background = '#eeeeee';
                 }
+                if (j == 0) {
+                    cell.style.background = '#ffff00';
+                    if (i >= 0 && i <= 5) {
+                        cell.style.background = '#DDDD00';
+                    }
+                    if (i >=  10 && i <= 14) {
+                        cell.style.background = '#DDDD00';
+                    }
+                    if (i >= 33 && i <= 50) {
+                        cell.style.background = '#DDDD00';
+                    }
+                }
                 if (j > 0 || i == 5 || i == 9 || i == 14 || i == 32 || i == 50 || i == 54) {
                     if (j == 0) {
                         const rotatedDiv = document.createElement('div');
@@ -136,17 +148,42 @@ export default function SaveButton() {
                         rotatedDiv.style.position = 'absolute';
                         rotatedDiv.style.transform = 'rotate(-90deg)';
                         rotatedDiv.style.transformOrigin = 'left top';
+                        if (i > 30) {
+                            rotatedDiv.style.color = 'red';
+                            rotatedDiv.style.textDecoration = 'underline';
+                        }
                         cell.appendChild(rotatedDiv);
                     } else {
                         if (j == 1) {
                             cell.textContent = titles[i];
+                            cell.style.background = '#ffff00';
+                            if (i >= 0 && i <= 5) {
+                                cell.style.background = '#DDDD00';
+                            }
+                            if (i >=  10 && i <= 14) {
+                                cell.style.background = '#DDDD00';
+                            }
+                            if (i >= 33 && i <= 50) {
+                                cell.style.background = '#DDDD00';
+                            }
+                            if (i == 16 || i == 36) {
+                                cell.style.color = 'red';
+                            }
                         }
                         if (j == 2) {
                             switch (i) {
+                                case 0:
+                                case 1:
+                                case 2:
+                                case 3:
+                                    cell.style.background = '#DDDD00';
+                                    break;
                                 case 4:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData['simOps'];
                                     break;
                                 case 5:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData['starsSite'];
                                     break;
 
@@ -192,6 +229,8 @@ export default function SaveButton() {
                                     cell.textContent = formData4['weakestBHAConnection2'];
                                     break;
                                 case 19:
+                                    cell.style.background = '#FFFF00';
+                                    cell.style.color = 'red';
                                     value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
                                         + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
 
@@ -201,6 +240,8 @@ export default function SaveButton() {
                                     cell.textContent = formData4['actualPeakTorque2'];
                                     break;
                                 case 21:
+                                    cell.style.background = '#FFFF00';
+                                    cell.style.color = 'red';
                                     value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
                                             + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
 
@@ -252,7 +293,23 @@ export default function SaveButton() {
                                     cell.textContent = formData5['waterHauled'];
                                     break;
                                 case 36:
-                                    cell.textContent = formData5['cumulativeLostTime'];
+                                    cell.style.background = '#DDDD00';
+                                    cell.style.color = 'red';
+                                    const total = parseFloat(formData5['lostTime1'] == '' ? 0 : formData5['lostTime1'])
+                                        + parseFloat(formData5['lostTime2'] == '' ? 0 : formData5['lostTime2'])
+                                        + parseFloat(formData5['lostTime3'] == '' ? 0 : formData5['lostTime3'])
+                                        + parseFloat(formData5['lostTime4'] == '' ? 0 : formData5['lostTime4'])
+                                        + parseFloat(formData5['lostTime5'] == '' ? 0 : formData5['lostTime5'])
+                                        + parseFloat(formData5['lostTime6'] == '' ? 0 : formData5['lostTime6'])
+                                        + parseFloat(formData5['lostTime7'] == '' ? 0 : formData5['lostTime7'])
+                                        + parseFloat(formData5['lostTime8'] == '' ? 0 : formData5['lostTime8'])
+                                        + parseFloat(formData5['lostTime9'] == '' ? 0 : formData5['lostTime9'])
+                                        + parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
+                                        + parseFloat(formData5['directionalMWDFailure'] == '' ? 0 : formData5['directionalMWDFailure'])
+                                        + parseFloat(formData5['directionalRotorStatorFailure'] == '' ? 0 : formData5['directionalRotorStatorFailure'])
+                                        + parseFloat(formData5['directionalDriveShaftFailure'] == '' ? 0 : formData5['directionalDriveShaftFailure']);
+
+                                    cell.textContent = total;
                                     break;
                                 case 37:
                                     cell.textContent = formData5['lostTime1'];
@@ -295,6 +352,7 @@ export default function SaveButton() {
                                     break;
 
                                 case 50:
+                                    cell.style.background = '#DDDD00';
                                     cell.textContent = formData6['dpCumulativeMeters2'];
                                     break;
                                 case 51:
@@ -344,6 +402,7 @@ export default function SaveButton() {
                                     cell.textContent = formData2['Crew3AndServices'];
                                     break;
                                 case 9:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData2['LastOBErecordable'];
                                     break;
                                 
@@ -373,15 +432,19 @@ export default function SaveButton() {
                                     cell.textContent = formData4['offBottomTorque'];
                                     break;
                                 case 18:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData4['weakestBHAConnection'];
                                     break;
                                 case 19:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData4['topDriveSetPoint'];
                                     break;
                                 case 20:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData4['actualPeakTorque'];
                                     break;
                                 case 21:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData4['operationalTorqueBuffer'];
                                     break;
                                 case 22:
@@ -400,6 +463,7 @@ export default function SaveButton() {
                                     cell.textContent = formData4['mudLosses'];
                                     break;
                                 case 27:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData4['redTaskProcedures'];
                                     break;
                                 case 28:
@@ -428,6 +492,7 @@ export default function SaveButton() {
                                     cell.textContent = formData5['waterHauled2'];
                                     break;
                                 case 36:
+                                    cell.style.color = 'red';
                                     cell.textContent = formData5['cumulativeLostTime2'];
                                     break;
                                 case 37:
