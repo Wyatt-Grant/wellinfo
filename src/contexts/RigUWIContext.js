@@ -155,14 +155,12 @@ export function RigUWIProvider({ children }) {
       const savedData3 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata3`);
       const savedData4 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata4`);
       const savedData5 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata5`);
-      const savedData6 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata6`);
+      const savedData6 = localStorage.getItem(`wellForm-savedata6`);  
+      
+        
       if (savedData) {
         setFormData(JSON.parse(savedData));
-        setFormData2(JSON.parse(savedData2));
-        setFormData3(JSON.parse(savedData3));
-        setFormData4(JSON.parse(savedData4));
-        setFormData5(JSON.parse(savedData5));
-        setFormData6(JSON.parse(savedData6));
+        console.log(savedData);
       } else {
         setFormData((prev) => ({
           ...prev,
@@ -174,6 +172,10 @@ export function RigUWIProvider({ children }) {
           starsSite: '',
           starsSite2: '',
         }));
+      }
+      if (savedData2) {
+        setFormData2(JSON.parse(savedData2));
+      } else {
         setFormData2((prev) => ({
           ...prev,
           Crew1AndServicesDate: '',
@@ -185,6 +187,10 @@ export function RigUWIProvider({ children }) {
           LastOBErecordableDate: '',
           LastOBErecordable: '',
         }));
+      }
+      if (savedData3) {
+        setFormData3(JSON.parse(savedData3));
+      } else {
         setFormData3((prev) => ({
           ...prev,
           Vertical: '',
@@ -198,6 +204,10 @@ export function RigUWIProvider({ children }) {
           PROP: '',
           PROP2: '',
         }));
+      }
+      if (savedData4) {
+        setFormData4(JSON.parse(savedData4));
+      } else {
         setFormData4((prev) => ({
           ...prev,
           metersDrilled: '',
@@ -238,6 +248,10 @@ export function RigUWIProvider({ children }) {
           surfaceProblems2: '',
           performanceLimiters2: '',
         }));
+      }
+      if (savedData5) {
+        setFormData5(JSON.parse(savedData5));
+      } else {
         setFormData5((prev) => ({
           ...prev,
           mudLosses: '',
@@ -278,6 +292,10 @@ export function RigUWIProvider({ children }) {
           directionalRotorStatorFailure2: '',
           directionalDriveShaftFailure2: '',
         }));
+      }
+      if (savedData6) {
+        setFormData6(JSON.parse(savedData6));
+      } else {
         setFormData6((prev) => ({
           ...prev,
           dpCumulativeMeters: '',
@@ -324,7 +342,7 @@ export function RigUWIProvider({ children }) {
   }, [formData5]);
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata6`, JSON.stringify(formData6));
+      localStorage.setItem(`wellForm-savedata6`, JSON.stringify(formData6));
     }
   }, [formData6]);
 

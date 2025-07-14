@@ -74,15 +74,15 @@ export default function Last12HoursForm() {
       name: 'mudLosses',
       help: ''
     },
-    { 
-      label: 'Safety Incidents (describe)', 
-      name: 'safetyIncidents', 
-      help: ''
-    },
     {
       label: '# of red task procedures followed (minimum 1/shift)',
       name: 'redTaskProcedures',
       help: 'Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig'
+    },
+    { 
+      label: 'Safety Incidents (describe)', 
+      name: 'safetyIncidents', 
+      help: ''
     },
     {
       label: 'Downhole BHA/Mud Problems (describe)', 
@@ -131,21 +131,28 @@ export default function Last12HoursForm() {
           value -= parseFloat(formData4['actualPeakTorque2'] == '' ? 0 : formData4['actualPeakTorque2']);
         }
 
-        let multiFiled = false;
-        if (name == "metersDrilled"
-          || name == "bhaMudProblems"
+        let long = false;
+        if (name == "bhaMudProblems"
           || name == "reservoirPlacementProblems"
           || name == "surfaceProblems"
-          || name == "performanceLimiters") {
+          || name == "performanceLimiters"
+          || name == "safetyIncidents") {
+          long = true;
+        }
+
+        let multiFiled = false;
+        if (name == "metersDrilled"
+          ) {
           multiFiled = true;
         }
 
         return (
         <Fragment key={name}>
+          {}
           <TextField
             disabled={name == "topDriveSetPoint" || name == "operationalTorqueBuffer"}
             sx={{
-              width: '32%',
+              width: long ? '48%' : '32%',
               '& .MuiInputBase-root': {
                 backgroundColor: (name == "topDriveSetPoint" || name == "operationalTorqueBuffer") ? '#fff9c4' : '#ffffff',
               }
@@ -173,7 +180,7 @@ export default function Last12HoursForm() {
               multiline
             />
           }
-          {name == "redTaskProcedures" && <div style={{width: '64%'}}></div>}
+          {/* {name == "safetyIncidents" && <div style={{width: '64%'}}></div>} */}
         </Fragment>
       )
       })}

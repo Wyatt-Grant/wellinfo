@@ -135,9 +135,6 @@ export default function CumulativeForm() {
     (sum, val) => sum + parseFloat(val || 0),
     0
   ) + total;
-
-  console.log("totalLostTime: " + totalLostTime);
-
             
   const addLostTime = () => {
     setFormData5((prev) => ({

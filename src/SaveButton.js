@@ -509,6 +509,13 @@ export default function SaveButton() {
         const nameDiv = document.createElement('span');
         nameDiv.textContent = "5am & 5pm"
         title.appendChild(nameDiv);
+        const symbolDiv = document.createElement('span');
+        symbolDiv.textContent = "🝮"
+        symbolDiv.style.userSelect = 'none';
+        symbolDiv.style.position = 'absolute';
+        symbolDiv.style.top = '22px';
+        symbolDiv.style.left = '-1px';
+        title.appendChild(symbolDiv);
 
         wrapper.appendChild(title);
         wrapper.appendChild(table);
