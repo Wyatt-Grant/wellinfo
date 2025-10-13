@@ -272,19 +272,19 @@ export default function SaveButton() {
                                     cell.textContent = formData4['redTaskProcedures2'];
                                     break;
                                 case 28:
-                                    cell.textContent = '';
+                                    cell.textContent = formData4['safetyIncidents'];
                                     break;
                                 case 29:
-                                    cell.textContent = '';
+                                    cell.textContent = formData4['bhaMudProblems'];
                                     break;
                                 case 30:
-                                    cell.textContent = '';
+                                    cell.textContent = formData4['reservoirPlacementProblems'];
                                     break;
                                 case 31:
-                                    cell.textContent = '';
+                                    cell.textContent = formData4['surfaceProblems'];
                                     break;
                                 case 32:
-                                    cell.textContent = '';
+                                    cell.textContent = formData4['performanceLimiters'];
                                     break;
 
                                 case 33:

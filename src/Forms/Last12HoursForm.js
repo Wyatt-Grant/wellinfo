@@ -80,27 +80,27 @@ export default function Last12HoursForm() {
       help: 'Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig'
     },
     { 
-      label: 'Safety Incidents (describe)', 
+      label: 'Safety Incidents', 
       name: 'safetyIncidents', 
       help: ''
     },
     {
-      label: 'Downhole BHA/Mud Problems (describe)', 
+      label: 'Downhole BHA/Mud Problems', 
       name: 'bhaMudProblems',
       help: 'EX: Mud weight is 50 kg higher than normal' 
     },
     {
-      label: 'Downhole Reservoir/Placement Problems (describe)', 
+      label: 'Downhole Reservoir/Placement Problems', 
       name: 'reservoirPlacementProblems',
       help: 'EX: High in the reservoir, Drilling 70 gamma, normally drill 90-100 gamma'
     },
     {
-      label: 'Surface Problems (describe)',
+      label: 'Surface Problems',
       name: 'surfaceProblems',
       help: 'EX: Mud pump 2 is down due to belt problem'
     },
     {
-      label: 'Performance limiters (describe)',
+      label: 'Performance limiters',
       name: 'performanceLimiters',
       help: 'EX: Drilling 50% slower than normal. Suspect motor is the problem'
     },
@@ -132,16 +132,21 @@ export default function Last12HoursForm() {
         }
 
         let long = false;
-        if (name == "bhaMudProblems"
-          || name == "reservoirPlacementProblems"
-          || name == "surfaceProblems"
-          || name == "performanceLimiters"
-          || name == "safetyIncidents") {
-          long = true;
-        }
+        // if (name == "bhaMudProblems"
+        //   || name == "reservoirPlacementProblems"
+        //   || name == "surfaceProblems"
+        //   || name == "performanceLimiters"
+        //   || name == "safetyIncidents") {
+        //   long = true;
+        // }
 
         let multiFiled = false;
         if (name == "metersDrilled"
+          || name == "bhaMudProblems"
+          || name == "reservoirPlacementProblems"
+          || name == "surfaceProblems"
+          || name == "performanceLimiters"
+          || name == "safetyIncidents"
           ) {
           multiFiled = true;
         }
@@ -162,7 +167,7 @@ export default function Last12HoursForm() {
             value={value}
             onChange={handleChange}
             fullWidth
-            helperText={help}
+            helperText={multiFiled ? '' : help}
             size="small"
             margin="dense" 
             multiline
@@ -171,6 +176,7 @@ export default function Last12HoursForm() {
             <TextField
               sx={{ width: '64%' }}
               name={name}
+              label={'Describe'}
               value={formData4[name]}
               onChange={handleChange}
               fullWidth
