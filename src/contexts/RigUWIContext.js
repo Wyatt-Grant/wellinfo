@@ -40,7 +40,6 @@ export function RigUWIProvider({ children }) {
 
   const [formData4, setFormData4] = useState({
     metersDrilled: '',
-    formationDrilled: '',
     offBottomTorque: '',
     weakestBHAConnection: '',
     topDriveSetPoint: '',
@@ -59,7 +58,6 @@ export function RigUWIProvider({ children }) {
     performanceLimiters: '',
 
     metersDrilled2: '',
-    formationDrilled2: '',
     offBottomTorque2: '',
     weakestBHAConnection2: '',
     topDriveSetPoint2: '',
@@ -211,7 +209,6 @@ export function RigUWIProvider({ children }) {
         setFormData4((prev) => ({
           ...prev,
           metersDrilled: '',
-          formationDrilled: '',
           offBottomTorque: '',
           weakestBHAConnection: '',
           topDriveSetPoint: '',
@@ -230,7 +227,6 @@ export function RigUWIProvider({ children }) {
           performanceLimiters: '',
 
           metersDrilled2: '',
-          formationDrilled2: '',
           offBottomTorque2: '',
           weakestBHAConnection2: '',
           topDriveSetPoint2: '',

@@ -20,12 +20,7 @@ export default function Last12HoursForm() {
       help: 'EX: Leg #3 1235-1837m'
     },
     {
-      label: 'Formation/Cycle/Facies Drilled', 
-      name: 'formationDrilled',
-      help: 'EX: BFS, Peace River, Harmon, Falher A,B,C,D,E,F,F shale cap, Wilrich'
-    },
-    {
-      label: 'Off bottom torque (ftlbs) in good hole', 
+      label: 'Off bottom torque (ftlbs) in good hole',
       name: 'offBottomTorque',
       help: 'Measured off bottom w/ stationary pipe in good hole conditions & smooth torque (tourly)'
     },
@@ -182,10 +177,11 @@ export default function Last12HoursForm() {
               fullWidth
               helperText={help}
               size="small"
-              margin="dense" 
+              margin="dense"
               multiline
             />
           }
+          {name == "metersDrilled" && <Box sx={{ width: '32%' }} />}
           {/* {name == "safetyIncidents" && <div style={{width: '64%'}}></div>} */}
         </Fragment>
       )

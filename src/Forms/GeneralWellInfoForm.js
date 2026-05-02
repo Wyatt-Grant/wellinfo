@@ -25,7 +25,7 @@ export default function GeneralWellInfoForm() {
       help: 'EX: PD 141 on 102/3-13-079-17W5'
     },
     {
-      label: 'Well on pad',
+      label: 'Well on pad + Supervisors',
       name: 'wellOnPad',
       help: 'EX: Well #7 of 7 on 04-24-79-17W5 pad'
     },

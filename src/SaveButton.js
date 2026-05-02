@@ -12,7 +12,7 @@ export default function SaveButton() {
     const sectionTitles = ['General Well Info','Monthly Safety Stand Down','Basic Well design','Last 12\nHours','Cumulative (this\nwell)','Cumulative (Project)'];
     const titles = [
         'Rig & UWI',
-        'Well on pad',
+        'Well on pad + Supervisors',
         'Anticipated move date & type',
         'Current Operation',
         'Sim-ops within 25m (Y/N)',
@@ -27,7 +27,6 @@ export default function SaveButton() {
         'Intermediate - Cemented Liner (type #2)',
         'PROP',
         'Meters drilled (m)',
-        'Formation/Cycle/Facies Drilled',
         'Off bottom torque (ftlbs) in good hole',
         '80% of weakest BHA connection',
         'Top Drive Set Point (ftlbs)',
@@ -72,7 +71,7 @@ export default function SaveButton() {
     const handlePreviewPDF = () => {
         const wrapper = makeTable();
         const htmlContent = typeof wrapper === 'string' ? wrapper : wrapper.outerHTML;
-        
+
         const newWindow = window.open('', '_blank');
         newWindow.document.write(`
             <html>
@@ -88,7 +87,7 @@ export default function SaveButton() {
     }
 
     const makeTable = () => {
-        const losttimesStart = 37;
+        const losttimesStart = 36;
         const numberOfLostTimes = formData5['lostTimes'].length;
 
         // Create a new table element
@@ -109,7 +108,7 @@ export default function SaveButton() {
         // Populate table with 56 rows × 3 columns
         let sectionCounter = 0;
         let value = 0;
-        for (let i = 0; i < 47 + numberOfLostTimes; i++) {
+        for (let i = 0; i < 46 + numberOfLostTimes; i++) {
             const row = table.insertRow();
             for (let j = 0; j < 4; j++) {
                 const cell = row.insertCell();
@@ -121,7 +120,7 @@ export default function SaveButton() {
                 if (i >=  10 && i <= 14) {
                     cell.style.background = '#eeeeee';
                 }
-                if (i >= 33 && i <= 40 + numberOfLostTimes) {
+                if (i >= 32 && i <= 39 + numberOfLostTimes) {
                     cell.style.background = '#eeeeee';
                 }
                 if (j == 0) {
@@ -132,11 +131,11 @@ export default function SaveButton() {
                     if (i >=  10 && i <= 14) {
                         cell.style.background = '#DDDD00';
                     }
-                    if (i >= 33 && i <= 40 + numberOfLostTimes) {
+                    if (i >= 32 && i <= 39 + numberOfLostTimes) {
                         cell.style.background = '#DDDD00';
                     }
                 }
-                if (j > 0 || i == 5 || i == 9 || i == 14 || i == 32 || i == 40 + numberOfLostTimes || i == 46 + numberOfLostTimes) {
+                if (j > 0 || i == 5 || i == 9 || i == 14 || i == 31 || i == 39 + numberOfLostTimes || i == 45 + numberOfLostTimes) {
                     if (j == 0) {
                         const rotatedDiv = document.createElement('div');
 
@@ -153,9 +152,9 @@ export default function SaveButton() {
                         cell.appendChild(rotatedDiv);
                     } else {
                         if (j == 1) {
-                            if (i < 37) {
+                            if (i < 36) {
                                 cell.textContent = titles[i];
-                            } else if (i >= 37 && i < (losttimesStart + numberOfLostTimes)) {
+                            } else if (i >= 36 && i < (losttimesStart + numberOfLostTimes)) {
                                 cell.textContent = "Lost Time";
                             } else if (i >= (losttimesStart + numberOfLostTimes)) {
                                 cell.textContent = titles2[i - (losttimesStart + numberOfLostTimes)];
@@ -167,10 +166,10 @@ export default function SaveButton() {
                             if (i >=  10 && i <= 14) {
                                 cell.style.background = '#DDDD00';
                             }
-                            if (i >= 33 && i <= 40 + numberOfLostTimes) {
+                            if (i >= 32 && i <= 39 + numberOfLostTimes) {
                                 cell.style.background = '#DDDD00';
                             }
-                            if (i == 16 || i == 36) {
+                            if (i == 35) {
                                 cell.style.color = 'red';
                             }
                         }
@@ -203,7 +202,7 @@ export default function SaveButton() {
                                 case 9:
                                     cell.textContent = formData2['LastOBErecordableDate'] ? moment(formData2['LastOBErecordableDate']).format('MMMM Do, YYYY') : '';
                                     break;
-                                    
+
                                 case 10:
                                     cell.textContent = formData3['Vertical'];
                                     break;
@@ -224,15 +223,12 @@ export default function SaveButton() {
                                     cell.textContent = formData4['metersDrilled2'];
                                     break;
                                 case 16:
-                                    cell.textContent = formData4['formationDrilled2'];
-                                    break;
-                                case 17:
                                     cell.textContent = formData4['offBottomTorque2'];
                                     break;
-                                case 18:
+                                case 17:
                                     cell.textContent = formData4['weakestBHAConnection2'];
                                     break;
-                                case 19:
+                                case 18:
                                     cell.style.background = '#FFFF00';
                                     cell.style.color = 'red';
                                     value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
@@ -240,10 +236,10 @@ export default function SaveButton() {
 
                                     cell.textContent = value;
                                     break;
-                                case 20:
+                                case 19:
                                     cell.textContent = formData4['actualPeakTorque2'];
                                     break;
-                                case 21:
+                                case 20:
                                     cell.style.background = '#FFFF00';
                                     cell.style.color = 'red';
                                     value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
@@ -253,50 +249,50 @@ export default function SaveButton() {
 
                                     cell.textContent = value;
                                     break;
-                                case 22:
+                                case 21:
                                     cell.textContent = formData4['avgSlideROP2'];
                                     break;
-                                case 23:
+                                case 22:
                                     cell.textContent = formData4['avgRotaryROP2'];
                                     break;
-                                case 24:
+                                case 23:
                                     cell.textContent = formData4['mudType2'];
                                     break;
-                                case 25:
+                                case 24:
                                     cell.textContent = formData4['mudWeight2'];
                                     break;
-                                case 26:
+                                case 25:
                                     cell.textContent = formData4['mudLosses2'];
                                     break;
-                                case 27:
+                                case 26:
                                     cell.textContent = formData4['redTaskProcedures2'];
                                     break;
-                                case 28:
+                                case 27:
                                     cell.textContent = formData4['safetyIncidents2'];
                                     break;
-                                case 29:
+                                case 28:
                                     cell.textContent = formData4['bhaMudProblems2'];
                                     break;
-                                case 30:
+                                case 29:
                                     cell.textContent = formData4['reservoirPlacementProblems2'];
                                     break;
-                                case 31:
+                                case 30:
                                     cell.textContent = formData4['surfaceProblems2'];
                                     break;
-                                case 32:
+                                case 31:
                                     cell.textContent = formData4['performanceLimiters2'];
                                     break;
 
-                                case 33:
+                                case 32:
                                     cell.textContent = formData5['mudLosses'];
                                     break;
-                                case 34:
+                                case 33:
                                     cell.textContent = formData5['mudLossesPer100m'];
                                     break;
-                                case 35:
+                                case 34:
                                     cell.textContent = formData5['waterHauled'];
                                     break;
-                                case 36:
+                                case 35:
                                     cell.style.background = '#DDDD00';
                                     cell.style.color = 'red';
                                     const total = parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
@@ -310,8 +306,8 @@ export default function SaveButton() {
                                     cell.textContent = totalLostTime;
                                     break;
                                 default:
-                                    if (i >= 37 && i < (losttimesStart + numberOfLostTimes)) {
-                                        cell.textContent = formData5['lostTimes'][i-37];
+                                    if (i >= 36 && i < (losttimesStart + numberOfLostTimes)) {
+                                        cell.textContent = formData5['lostTimes'][i-36];
                                     } else if (i == (losttimesStart + numberOfLostTimes)) {
                                         cell.textContent = formData5['waitOnCementers'];
                                     } else if (i == (losttimesStart + numberOfLostTimes + 1)) {
@@ -368,7 +364,7 @@ export default function SaveButton() {
                                     cell.style.color = 'red';
                                     cell.textContent = formData2['LastOBErecordable'];
                                     break;
-                                
+
                                 case 10:
                                     cell.textContent = formData3['Vertical2'];
                                     break;
@@ -389,26 +385,26 @@ export default function SaveButton() {
                                     cell.textContent = formData4['metersDrilled'];
                                     break;
                                 case 16:
-                                    cell.textContent = "BFS, Peace River, Harmon, Falher A,B,C,D,E,F,F shale cap, Wilrich";
-                                    break;
-                                case 17:
                                     cell.textContent = "<--- measured off bottom w/ stationary pipe in good hole conditions & smooth torque (tourly)";
                                     break;
-                                case 18:
+                                case 17:
                                     cell.style.color = 'red';
                                     cell.textContent = "<--- verify with directional hand (tourly)";
                                     break;
-                                case 19:
+                                case 18:
                                     cell.style.color = 'red';
                                     cell.textContent = "<--- WSS to verify maximum top drive torque setting (tourly)";
                                     break;
-                                case 20:
+                                case 19:
                                     cell.style.color = 'red';
                                     cell.textContent = "<--- measured on bottom drilling (on-going)";
                                     break;
-                                case 21:
+                                case 20:
                                     cell.style.color = 'red';
                                     cell.textContent = "<--- No negative numbers allowed!!!";
+                                    break;
+                                case 21:
+                                    cell.textContent = '';
                                     break;
                                 case 22:
                                     cell.textContent = '';
@@ -423,44 +419,41 @@ export default function SaveButton() {
                                     cell.textContent = '';
                                     break;
                                 case 26:
-                                    cell.textContent = '';
-                                    break;
-                                case 27:
                                     cell.style.color = 'red';
                                     cell.textContent = "Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig";
                                     break;
-                                case 28:
+                                case 27:
                                     cell.textContent = formData4['safetyIncidents'];
                                     break;
-                                case 29:
+                                case 28:
                                     cell.textContent = formData4['bhaMudProblems'];
                                     break;
-                                case 30:
+                                case 29:
                                     cell.textContent = formData4['reservoirPlacementProblems'];
                                     break;
-                                case 31:
+                                case 30:
                                     cell.textContent = formData4['surfaceProblems'];
                                     break;
-                                case 32:
+                                case 31:
                                     cell.textContent = formData4['performanceLimiters'];
                                     break;
 
-                                case 33:
+                                case 32:
                                     cell.textContent = formData5['mudLosses2'];
                                     break;
-                                case 34:
+                                case 33:
                                     cell.textContent = formData5['mudLossesPer100m2'];
                                     break;
-                                case 35:
+                                case 34:
                                     cell.textContent = formData5['waterHauled2'];
                                     break;
-                                case 36:
+                                case 35:
                                     cell.style.color = 'red';
                                     cell.textContent = formData5['cumulativeLostTime2'];
                                     break;
                                 default:
-                                    if (i >= 37 && i < (losttimesStart + numberOfLostTimes)) {
-                                        cell.textContent = formData5['lostTimes2'][i-37];
+                                    if (i >= 36 && i < (losttimesStart + numberOfLostTimes)) {
+                                        cell.textContent = formData5['lostTimes2'][i-36];
                                     } else if (i == (losttimesStart + numberOfLostTimes)) {
                                         cell.textContent = formData5['waitOnCementers2'];
                                     } else if (i == (losttimesStart + numberOfLostTimes + 1)) {
@@ -487,8 +480,8 @@ export default function SaveButton() {
                         cell.style.borderRight = '1px solid black';
                     }
                 }
-                
-                if (j > 0 || i == 6 || i == 10 || i == 15 || i == 33 || i == 41 + numberOfLostTimes || i == 47 + numberOfLostTimes) {
+
+                if (j > 0 || i == 6 || i == 10 || i == 15 || i == 32 || i == 40 + numberOfLostTimes || i == 46 + numberOfLostTimes) {
                     if (j == 0) {
                         cell.style.borderTop = '1px solid black';
                     }
