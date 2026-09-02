@@ -34,6 +34,7 @@ export default function SaveButton() {
         'Operational Torque Buffer (ftlbs)',
         'Avg. slide ROP (m/hr)',
         'Avg. rotary ROP (m/hr)',
+        'RCD Element In/Out',
         'Mud Type (Invert/water/other)',
         'Mud weight (kg/m3)',
         'Mud Losses (m3)',
@@ -45,7 +46,6 @@ export default function SaveButton() {
         'Performance limiters (describe)',
         'Mud Losses (m3)',
         'Mud Losses (m3/100m)',
-        'Water hauled… Water base drilling only (m3)',
         'Cumulative Lost time (hrs)',
         'Lost times',
     ];
@@ -56,10 +56,6 @@ export default function SaveButton() {
         'Directional- Rotor/Stator Failure (Lost time)',
         'Directional - Drive Shaft Failure (Lost time)',
         'DP cumulative meters since last inspection (m)',
-        'Wait on Cementers  (hrs)',
-        'Directional - MWD Failure  (hrs)',
-        'Directional- Rotor/Stator Failure  (hrs)',
-        'Directional - Drive Shaft Failure  (hrs)',
     ];
 
     const handleSavePDF = () => {
@@ -114,13 +110,18 @@ export default function SaveButton() {
                 const cell = row.insertCell();
                 cell.style.fontSize = '10px';
                 cell.style.backgroundColor = 'inherit';
+                // padding rows below the last Cumulative (Project) entry: give the
+                // rotated section title enough height that it doesn't overlap the one above
+                if (i >= 41 + numberOfLostTimes && i <= 44 + numberOfLostTimes) {
+                    cell.style.height = '16px';
+                }
                 if (i >= 0 && i <= 5) {
                     cell.style.background = '#eeeeee';
                 }
                 if (i >=  10 && i <= 14) {
                     cell.style.background = '#eeeeee';
                 }
-                if (i >= 32 && i <= 39 + numberOfLostTimes) {
+                if (i >= 33 && i <= 39 + numberOfLostTimes) {
                     cell.style.background = '#eeeeee';
                 }
                 if (j == 0) {
@@ -131,11 +132,11 @@ export default function SaveButton() {
                     if (i >=  10 && i <= 14) {
                         cell.style.background = '#DDDD00';
                     }
-                    if (i >= 32 && i <= 39 + numberOfLostTimes) {
+                    if (i >= 33 && i <= 39 + numberOfLostTimes) {
                         cell.style.background = '#DDDD00';
                     }
                 }
-                if (j > 0 || i == 5 || i == 9 || i == 14 || i == 31 || i == 39 + numberOfLostTimes || i == 45 + numberOfLostTimes) {
+                if (j > 0 || i == 5 || i == 9 || i == 14 || i == 32 || i == 39 + numberOfLostTimes || i == 45 + numberOfLostTimes) {
                     if (j == 0) {
                         const rotatedDiv = document.createElement('div');
 
@@ -157,7 +158,7 @@ export default function SaveButton() {
                             } else if (i >= 36 && i < (losttimesStart + numberOfLostTimes)) {
                                 cell.textContent = "Lost Time";
                             } else if (i >= (losttimesStart + numberOfLostTimes)) {
-                                cell.textContent = titles2[i - (losttimesStart + numberOfLostTimes)];
+                                cell.textContent = titles2[i - (losttimesStart + numberOfLostTimes)] || '';
                             }
                             cell.style.background = '#ffff00';
                             if (i >= 0 && i <= 5) {
@@ -166,7 +167,7 @@ export default function SaveButton() {
                             if (i >=  10 && i <= 14) {
                                 cell.style.background = '#DDDD00';
                             }
-                            if (i >= 32 && i <= 39 + numberOfLostTimes) {
+                            if (i >= 33 && i <= 39 + numberOfLostTimes) {
                                 cell.style.background = '#DDDD00';
                             }
                             if (i == 35) {
@@ -256,41 +257,41 @@ export default function SaveButton() {
                                     cell.textContent = formData4['avgRotaryROP2'];
                                     break;
                                 case 23:
-                                    cell.textContent = formData4['mudType2'];
+                                    cell.textContent = formData4['rcdElement2'] || '';
                                     break;
                                 case 24:
-                                    cell.textContent = formData4['mudWeight2'];
+                                    cell.textContent = formData4['mudType2'];
                                     break;
                                 case 25:
-                                    cell.textContent = formData4['mudLosses2'];
+                                    cell.textContent = formData4['mudWeight2'];
                                     break;
                                 case 26:
-                                    cell.textContent = formData4['redTaskProcedures2'];
+                                    cell.textContent = formData4['mudLosses2'];
                                     break;
                                 case 27:
-                                    cell.textContent = formData4['safetyIncidents2'];
+                                    cell.textContent = formData4['redTaskProcedures2'];
                                     break;
                                 case 28:
-                                    cell.textContent = formData4['bhaMudProblems2'];
+                                    cell.textContent = formData4['safetyIncidents2'];
                                     break;
                                 case 29:
-                                    cell.textContent = formData4['reservoirPlacementProblems2'];
+                                    cell.textContent = formData4['bhaMudProblems2'];
                                     break;
                                 case 30:
-                                    cell.textContent = formData4['surfaceProblems2'];
+                                    cell.textContent = formData4['reservoirPlacementProblems2'];
                                     break;
                                 case 31:
+                                    cell.textContent = formData4['surfaceProblems2'];
+                                    break;
+                                case 32:
                                     cell.textContent = formData4['performanceLimiters2'];
                                     break;
 
-                                case 32:
+                                case 33:
                                     cell.textContent = formData5['mudLosses'];
                                     break;
-                                case 33:
-                                    cell.textContent = formData5['mudLossesPer100m'];
-                                    break;
                                 case 34:
-                                    cell.textContent = formData5['waterHauled'];
+                                    cell.textContent = formData5['mudLossesPer100m'];
                                     break;
                                 case 35:
                                     cell.style.background = '#DDDD00';
@@ -318,14 +319,6 @@ export default function SaveButton() {
                                         cell.textContent = formData5['directionalDriveShaftFailure'];
                                     } else if (i == (losttimesStart + numberOfLostTimes + 4)) {
                                         cell.textContent = formData6['dpCumulativeMeters2'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 5)) {
-                                        cell.textContent = formData6['waitOnCementersHrs2'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 6)) {
-                                        cell.textContent = formData6['directionalMWDFailureHrs2'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 7)) {
-                                        cell.textContent = formData6['directionalRotorStatorFailureHrs2'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 8)) {
-                                        cell.textContent = formData6['directionalDriveShaftFailureHrs2'];
                                     }
                                     break;
                             }
@@ -419,33 +412,33 @@ export default function SaveButton() {
                                     cell.textContent = '';
                                     break;
                                 case 26:
+                                    cell.textContent = '';
+                                    break;
+                                case 27:
                                     cell.style.color = 'red';
                                     cell.textContent = "Ask crews  what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig";
                                     break;
-                                case 27:
+                                case 28:
                                     cell.textContent = formData4['safetyIncidents'];
                                     break;
-                                case 28:
+                                case 29:
                                     cell.textContent = formData4['bhaMudProblems'];
                                     break;
-                                case 29:
+                                case 30:
                                     cell.textContent = formData4['reservoirPlacementProblems'];
                                     break;
-                                case 30:
+                                case 31:
                                     cell.textContent = formData4['surfaceProblems'];
                                     break;
-                                case 31:
+                                case 32:
                                     cell.textContent = formData4['performanceLimiters'];
                                     break;
 
-                                case 32:
+                                case 33:
                                     cell.textContent = formData5['mudLosses2'];
                                     break;
-                                case 33:
-                                    cell.textContent = formData5['mudLossesPer100m2'];
-                                    break;
                                 case 34:
-                                    cell.textContent = formData5['waterHauled2'];
+                                    cell.textContent = formData5['mudLossesPer100m2'];
                                     break;
                                 case 35:
                                     cell.style.color = 'red';
@@ -464,14 +457,6 @@ export default function SaveButton() {
                                         cell.textContent = formData5['directionalDriveShaftFailure2'];
                                     } else if (i == (losttimesStart + numberOfLostTimes + 4)) {
                                         cell.textContent = formData6['dpCumulativeMeters'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 5)) {
-                                        cell.textContent = formData6['waitOnCementersHrs'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 6)) {
-                                        cell.textContent = formData6['directionalMWDFailureHrs'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 7)) {
-                                        cell.textContent = formData6['directionalRotorStatorFailureHrs'];
-                                    } else if (i == (losttimesStart + numberOfLostTimes + 8)) {
-                                        cell.textContent = formData6['directionalDriveShaftFailureHrs'];
                                     }
                                     break;
                             }
@@ -481,7 +466,7 @@ export default function SaveButton() {
                     }
                 }
 
-                if (j > 0 || i == 6 || i == 10 || i == 15 || i == 32 || i == 40 + numberOfLostTimes || i == 46 + numberOfLostTimes) {
+                if (j > 0 || i == 6 || i == 10 || i == 15 || i == 33 || i == 40 + numberOfLostTimes || i == 46 + numberOfLostTimes) {
                     if (j == 0) {
                         cell.style.borderTop = '1px solid black';
                     }

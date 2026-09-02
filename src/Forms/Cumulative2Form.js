@@ -19,26 +19,6 @@ export default function Cumulative2Form() {
       name: 'dpCumulativeMeters', 
       help: 'EX: Planned 80,000m inspection frequency'
     },
-    { 
-      label: 'Wait on Cementers  (hrs)', 
-      name: 'waitOnCementersHrs', 
-      help: 'EX: 0 failure for this rig since project start on June, 2025 ( Trican)'
-    },
-    { 
-      label: 'Directional - MWD Failure  (hrs)', 
-      name: 'directionalMWDFailureHrs', 
-      help: 'EX: 2 failure for this rig since project start on June, 2025'
-    },
-    { 
-      label: 'Directional- Rotor/Stator Failure  (hrs)', 
-      name: 'directionalRotorStatorFailureHrs', 
-      help: 'EX: 0 failure for this rig since project start on June, 2025'
-    },
-    { 
-      label: 'Directional - Drive Shaft Failure  (hrs)', 
-      name: 'directionalDriveShaftFailureHrs', 
-      help: 'EX: 0 failure for this rig since project start on June, 2025'
-    },
   ];
 
   if (formData6 === null) {

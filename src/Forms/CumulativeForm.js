@@ -39,11 +39,6 @@ export default function CumulativeForm() {
       help: ''
     },
     { 
-      label: 'Water hauled… Water base drilling only (m3)', 
-      name: 'waterHauled', 
-      help: ''
-    },
-    { 
       label: 'Cumulative Lost time (hrs)', 
       name: 'cumulativeLostTime', 
       help: ''
@@ -169,7 +164,6 @@ export default function CumulativeForm() {
       {textFields.map(({ label, name, help }) => {
         let multiFiled = false;
         if (name == "mudLossesPer100m"
-          || name == "waterHauled"
           || name == "cumulativeLostTime") {
           multiFiled = true;
         }

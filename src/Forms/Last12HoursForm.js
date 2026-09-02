@@ -2,6 +2,11 @@ import { Fragment, useContext } from 'react';
 import {
   TextField,
   Box,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from '@mui/material';
 import { RigUWIContext } from '../contexts/RigUWIContext';
 
@@ -53,6 +58,13 @@ export default function Last12HoursForm() {
       label: 'Avg. rotary ROP (m/hr)', 
       name: 'avgRotaryROP',
       help: '' 
+    },
+    {
+      label: 'RCD Element In/Out',
+      name: 'rcdElement',
+      type: 'radio',
+      options: ['In', 'Out'],
+      help: ''
     },
     {
       label: 'Mud Type (Invert/water/other)', 
@@ -113,7 +125,25 @@ export default function Last12HoursForm() {
       }}
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
-      {textFields.map(({ label, name, help }) => {
+      {textFields.map(({ label, name, help, type, options }) => {
+        if (type === 'radio') {
+          return (
+            <FormControl key={name} sx={{ width: '32%' }}>
+              <FormLabel>{label}</FormLabel>
+              <RadioGroup
+                row
+                name={name+'2'}
+                value={formData4[name+'2'] || ''}
+                onChange={handleChange}
+              >
+                {options.map((option) => (
+                  <FormControlLabel key={option} value={option} control={<Radio />} label={option} />
+                ))}
+              </RadioGroup>
+            </FormControl>
+          );
+        }
+
         let value = formData4[name+'2'];
         if (name == "topDriveSetPoint") {
           value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
