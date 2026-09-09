@@ -11,13 +11,31 @@ import Delete from '@mui/icons-material/Delete';
 export default function CumulativeForm() {
   const { formData5, setFormData5 } = useContext(RigUWIContext);
 
+  const numericFields = [
+    'lostTimes',
+    'waitOnCementers',
+    'directionalMWDFailure',
+    'directionalRotorStatorFailure',
+    'directionalDriveShaftFailure',
+  ];
+
+  // Keep only digits and a single decimal point.
+  const numericOnly = (value) => {
+    const cleaned = value.replace(/[^0-9.]/g, '');
+    const firstDot = cleaned.indexOf('.');
+    if (firstDot === -1) return cleaned;
+    return cleaned.slice(0, firstDot + 1) + cleaned.slice(firstDot + 1).replace(/\./g, '');
+  };
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    const value = numericFields.includes(name) ? numericOnly(e.target.value) : e.target.value;
     setFormData5((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleLostTimeChange = (e, index) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    const value = numericFields.includes(name) ? numericOnly(e.target.value) : e.target.value;
 
     setFormData5((prev) => ({
       ...prev,
@@ -121,10 +139,10 @@ export default function CumulativeForm() {
   
 
 
-  const total = parseFloat(formData5['waitOnCementers'] == '' ? 0 : formData5['waitOnCementers'])
-              + parseFloat(formData5['directionalMWDFailure'] == '' ? 0 : formData5['directionalMWDFailure'])
-              + parseFloat(formData5['directionalRotorStatorFailure'] == '' ? 0 : formData5['directionalRotorStatorFailure'])
-              + parseFloat(formData5['directionalDriveShaftFailure'] == '' ? 0 : formData5['directionalDriveShaftFailure']);
+  const total = parseFloat(formData5['waitOnCementers'] === '' ? 0 : formData5['waitOnCementers'])
+              + parseFloat(formData5['directionalMWDFailure'] === '' ? 0 : formData5['directionalMWDFailure'])
+              + parseFloat(formData5['directionalRotorStatorFailure'] === '' ? 0 : formData5['directionalRotorStatorFailure'])
+              + parseFloat(formData5['directionalDriveShaftFailure'] === '' ? 0 : formData5['directionalDriveShaftFailure']);
   
   const totalLostTime = formData5.lostTimes.reduce(
     (sum, val) => sum + parseFloat(val || 0),
@@ -163,13 +181,13 @@ export default function CumulativeForm() {
     >
       {textFields.map(({ label, name, help }) => {
         let multiFiled = false;
-        if (name == "mudLossesPer100m"
-          || name == "cumulativeLostTime") {
+        if (name === "mudLossesPer100m"
+          || name === "cumulativeLostTime") {
           multiFiled = true;
         }
 
-        if (name == "lostTimes") {
-          if (formData5[name].length == 0) {
+        if (name === "lostTimes") {
+          if (formData5[name].length === 0) {
             return (<>
               <Button onClick={addLostTime}>Add Lost time</Button>
               <div style={{ width: '48%' }}></div>
@@ -202,13 +220,14 @@ export default function CumulativeForm() {
                 value={formData5[`${name}2`][index]}
                 onChange={(e) => handleLostTimeChange(e, index)}
                 fullWidth
+                label={'Describe'}
                 helperText={help}
                 size="small"
                 margin="dense"
                 multiline
               />
               <IconButton onClick={() => removeLostTime(index)}><Delete fontSize="large" /></IconButton>
-              {formData5[name].length == index+1 && (<>
+              {formData5[name].length === index+1 && (<>
                 <Button onClick={addLostTime}>Add Lost time</Button>
                 <div style={{ width: '48%' }}></div>
               </>)}
@@ -220,15 +239,15 @@ export default function CumulativeForm() {
           <Fragment key={name}>
             <TextField
               type={label.includes('Lost time') ? 'number' : 'text'}
-              disabled={name=='cumulativeLostTime'}
+              disabled={name==='cumulativeLostTime'}
               sx={{
                 width: multiFiled ? '32%' : '48%',
                 '& .MuiInputBase-root': {
-                  backgroundColor: (name == "cumulativeLostTime") ? '#fff9c4' : '#ffffff',
+                  backgroundColor: (name === "cumulativeLostTime") ? '#fff9c4' : '#ffffff',
                 }
               }}
               name={name}
-              value={name=='cumulativeLostTime' ? totalLostTime : formData5[name]}
+              value={name==='cumulativeLostTime' ? totalLostTime : formData5[name]}
               onChange={handleChange}
               fullWidth
               label={label}
@@ -245,11 +264,12 @@ export default function CumulativeForm() {
               onChange={handleChange}
               fullWidth
               helperText={help}
-              // label={label}
+              label={(name === 'waitOnCementers' || name === 'directionalRotorStatorFailure' || name === 'directionalDriveShaftFailure') ? 'Describe' : undefined}
               size="small"
               margin="dense" 
               multiline
             />}
+            {(name === "mudLossesPer100m" || name === "cumulativeLostTime") && <Box sx={{ width: '64%' }} />}
           </Fragment>
       )})}
     </Box>

@@ -35,7 +35,7 @@ export default function Cumulative2Form() {
     >
       {textFields.map(({ label, name, help }) => {
         let multiFiled = false;
-        if (name == "dpCumulativeMeters") {
+        if (name === "dpCumulativeMeters") {
           multiFiled = true;
         }
 

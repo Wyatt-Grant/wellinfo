@@ -145,33 +145,33 @@ export default function Last12HoursForm() {
         }
 
         let value = formData4[name+'2'];
-        if (name == "topDriveSetPoint") {
-          value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
-                + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+        if (name === "topDriveSetPoint") {
+          value = parseFloat(formData4['offBottomTorque2'] === '' ? 0 : formData4['offBottomTorque2'])
+                + parseFloat(formData4['weakestBHAConnection2'] === '' ? 0 : formData4['weakestBHAConnection2']);
         }
-        if(name == "operationalTorqueBuffer") {
-          value = parseFloat(formData4['offBottomTorque2'] == '' ? 0 : formData4['offBottomTorque2'])
-                + parseFloat(formData4['weakestBHAConnection2'] == '' ? 0 : formData4['weakestBHAConnection2']);
+        if(name === "operationalTorqueBuffer") {
+          value = parseFloat(formData4['offBottomTorque2'] === '' ? 0 : formData4['offBottomTorque2'])
+                + parseFloat(formData4['weakestBHAConnection2'] === '' ? 0 : formData4['weakestBHAConnection2']);
 
-          value -= parseFloat(formData4['actualPeakTorque2'] == '' ? 0 : formData4['actualPeakTorque2']);
+          value -= parseFloat(formData4['actualPeakTorque2'] === '' ? 0 : formData4['actualPeakTorque2']);
         }
 
         let long = false;
-        // if (name == "bhaMudProblems"
-        //   || name == "reservoirPlacementProblems"
-        //   || name == "surfaceProblems"
-        //   || name == "performanceLimiters"
-        //   || name == "safetyIncidents") {
+        // if (name === "bhaMudProblems"
+        //   || name === "reservoirPlacementProblems"
+        //   || name === "surfaceProblems"
+        //   || name === "performanceLimiters"
+        //   || name === "safetyIncidents") {
         //   long = true;
         // }
 
         let multiFiled = false;
-        if (name == "metersDrilled"
-          || name == "bhaMudProblems"
-          || name == "reservoirPlacementProblems"
-          || name == "surfaceProblems"
-          || name == "performanceLimiters"
-          || name == "safetyIncidents"
+        if (name === "metersDrilled"
+          || name === "bhaMudProblems"
+          || name === "reservoirPlacementProblems"
+          || name === "surfaceProblems"
+          || name === "performanceLimiters"
+          || name === "safetyIncidents"
           ) {
           multiFiled = true;
         }
@@ -180,11 +180,11 @@ export default function Last12HoursForm() {
         <Fragment key={name}>
           {}
           <TextField
-            disabled={name == "topDriveSetPoint" || name == "operationalTorqueBuffer"}
+            disabled={name === "topDriveSetPoint" || name === "operationalTorqueBuffer"}
             sx={{
               width: long ? '48%' : '32%',
               '& .MuiInputBase-root': {
-                backgroundColor: (name == "topDriveSetPoint" || name == "operationalTorqueBuffer") ? '#fff9c4' : '#ffffff',
+                backgroundColor: (name === "topDriveSetPoint" || name === "operationalTorqueBuffer") ? '#fff9c4' : '#ffffff',
               }
             }}
             name={name+'2'}
@@ -211,8 +211,8 @@ export default function Last12HoursForm() {
               multiline
             />
           }
-          {name == "metersDrilled" && <Box sx={{ width: '32%' }} />}
-          {/* {name == "safetyIncidents" && <div style={{width: '64%'}}></div>} */}
+          {name === "metersDrilled" && <Box sx={{ width: '32%' }} />}
+          {name === "redTaskProcedures" && <Box sx={{ width: '64%' }} />}
         </Fragment>
       )
       })}
