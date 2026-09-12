@@ -74,7 +74,6 @@ export default function Last12HoursForm() {
       label: 'Mud Losses (m3)',
       name: 'mudLosses',
       help: 'Invert/KCL/Silicate/Lateral mud',
-      describe: true,
     },
     {
       label: '# of red task procedures followed (minimum 1/shift)',
@@ -203,10 +202,9 @@ export default function Last12HoursForm() {
               multiline
             />
           }
-          {/* end-of-group gaps: Meters drilled on its own line, then after the torque group and the count/picture group */}
+          {/* end-of-group gaps: Meters drilled on its own line, then after the torque group */}
           {name === "metersDrilled" && <Box sx={{ width: '64%' }} />}
           {name === "torqueBuffer" && <Box sx={{ width: '32%' }} />}
-          {name === "bhaBitFeelerGaugePicture" && <Box sx={{ width: '32%' }} />}
         </Fragment>
       )
       })}

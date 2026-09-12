@@ -31,7 +31,6 @@ const DEFAULT_FORM_DATA3 = {
 
 // Last 12 Hours: `xxx2` holds the number (middle column), `xxx` the description (right column)
 const DEFAULT_FORM_DATA4 = {
-  mudLosses: '',
   safetyIncidents: '',
   bhaMudProblems: '',
   reservoirPlacementProblems: '',
@@ -70,8 +69,6 @@ const DEFAULT_FORM_DATA5 = {
   directionalDriveShaftFailure: '',
   lostTimes: [''],
 
-  mudLosses2: '',
-  mudLossesPer100m2: '',
   miscLostTime2: '',
   waitOnCementers2: '',
   directionalMWDFailure2: '',

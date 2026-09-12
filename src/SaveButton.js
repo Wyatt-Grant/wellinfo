@@ -50,6 +50,7 @@ export default function SaveButton() {
     //   note cells that are yellow on the source spreadsheet; everything else is white.
     const buildSections = () => {
         const str = (v) => (v === undefined || v === null) ? '' : String(v);
+        const mudNote = 'Invert/KCL/Silicate/Lateral mud';
 
         const general = {
             title: 'General\nWell\nInfo',
@@ -102,7 +103,7 @@ export default function SaveButton() {
                 { label: 'RCD Element (In/Out)', mid: formData4.rcdElement2, right: '', rightYellow: true },
                 { label: 'Mud Type (Invert/water/other)', mid: formData4.mudType2, right: '', rightYellow: true },
                 { label: 'Mud weight (kg/m3)', mid: formData4.mudWeight2, right: '', rightYellow: true },
-                { label: 'Mud Losses (m3)', mid: formData4.mudLosses2, right: formData4.mudLosses, rightYellow: true },
+                { label: 'Mud Losses (m3)', mid: formData4.mudLosses2, right: mudNote, rightYellow: true },
                 { label: '# of red task procedures followed (minimum 1/shift)', mid: formData4.redTaskProcedures2, right: requirementOBE, rightYellow: true, rightRed: true },
                 { label: 'LIR (minimum 1/shift)', mid: formData4.lir2, right: requirementOBE, rightYellow: true, rightRed: true },
                 { label: 'Monthly Safety Package (When sent to rigs)', mid: formData4.monthlySafetyPackage2, right: requirementOBE, rightYellow: true, rightRed: true },
@@ -120,8 +121,8 @@ export default function SaveButton() {
             title: 'Cumulative\n(this\nwell)',
             titleRed: true,
             rows: [
-                { label: 'Mud Losses (m3)', mid: formData5.mudLosses, right: formData5.mudLosses2, rightYellow: true },
-                { label: 'Mud Losses (m3/100m)', mid: formData5.mudLossesPer100m, right: formData5.mudLossesPer100m2, rightYellow: true },
+                { label: 'Mud Losses (m3)', mid: formData5.mudLosses, right: mudNote, rightYellow: true },
+                { label: 'Mud Losses (m3/100m)', mid: formData5.mudLossesPer100m, right: mudNote, rightYellow: true },
                 { label: 'Cumulative Lost time (hrs)', mid: cumulativeLostTime(formData5), right: '<--- This is the sum of lost time entries below', labelRed: true, midYellow: true, midRed: true, rightYellow: true, rightRed: true },
                 { label: 'Misc. Lost time', mid: formData5.miscLostTime, right: formData5.miscLostTime2, rightYellow: true },
                 { label: 'Wait on Cementers (Lost time)', mid: formData5.waitOnCementers, right: formData5.waitOnCementers2, rightYellow: true },

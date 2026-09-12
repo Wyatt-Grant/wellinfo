@@ -53,12 +53,14 @@ export default function CumulativeForm() {
     {
       label: 'Mud Losses (m3)',
       name: 'mudLosses',
-      help: 'Invert/KCL/Silicate/Lateral mud. Start at "zero" for any new mud system type and/or hole section'
+      help: 'Invert/KCL/Silicate/Lateral mud. Start at "zero" for any new mud system type and/or hole section',
+      noDescribe: true,
     },
     {
       label: 'Mud Losses (m3/100m)',
       name: 'mudLossesPer100m',
-      help: 'Invert/KCL/Silicate/Lateral mud'
+      help: 'Invert/KCL/Silicate/Lateral mud',
+      noDescribe: true,
     },
     {
       label: 'Cumulative Lost time (hrs)',
@@ -128,7 +130,7 @@ export default function CumulativeForm() {
       }}
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
-      {textFields.map(({ label, name, help, computed }) => {
+      {textFields.map(({ label, name, help, computed, noDescribe }) => {
         if (name === "lostTimes") {
           if (formData5[name].length === 0) {
             return (<Fragment key={name}>
@@ -178,7 +180,7 @@ export default function CumulativeForm() {
               type={label.includes('Lost time') ? 'number' : 'text'}
               disabled={computed}
               sx={{
-                width: computed ? '32%' : '48%',
+                width: (computed || noDescribe) ? '32%' : '48%',
                 '& .MuiInputBase-root': {
                   backgroundColor: computed ? '#fff9c4' : '#ffffff',
                 }
@@ -188,12 +190,12 @@ export default function CumulativeForm() {
               onChange={handleChange}
               fullWidth
               label={label}
-              helperText={computed ? help : undefined}
+              helperText={(computed || noDescribe) ? help : undefined}
               size="small"
               margin="dense"
               multiline
             />
-            {!computed &&
+            {!computed && !noDescribe &&
             <TextField
               type={'text'}
               sx={{ width: '48%' }}
@@ -207,7 +209,7 @@ export default function CumulativeForm() {
               margin="dense"
               multiline
             />}
-            {computed && <Box sx={{ width: '64%' }} />}
+
           </Fragment>
       )})}
     </Box>
