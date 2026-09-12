@@ -40,7 +40,6 @@ const DEFAULT_FORM_DATA4 = {
   metersDrilled2: '',
   offBottomTorque2: '',
   weakestBHAConnection2: '',
-  topDriveSetPoint2: '',
   actualPeakTorque2: '',
   rcdElement2: '',
   mudType2: '',

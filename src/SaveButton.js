@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { WELL_CLASS_FIELDS } from './Forms/WellClassForm';
-import { torqueBuffer, requiredIntCasingTest, cumulativeLostTime } from './calculations';
+import { topDriveSetPoint, torqueBuffer, requiredIntCasingTest, cumulativeLostTime } from './calculations';
 
 const YELLOW = '#ffff00';
 
@@ -97,7 +97,7 @@ export default function SaveButton() {
                 { label: 'Meters drilled (m)', mid: formData4.metersDrilled2, right: '', rightYellow: true },
                 { label: 'Off bottom torque (ftlbs) in good hole', mid: formData4.offBottomTorque2, right: '<--- measured off bottom w/ stationary pipe in good hole conditions & smooth torque (tourly)', rightYellow: true },
                 { label: '80% of weakest BHA connection', mid: formData4.weakestBHAConnection2, right: '<--- verify with directional hand (tourly)', rightYellow: true, rightRed: true },
-                { label: 'Top Drive Set Point (ftlbs)', mid: formData4.topDriveSetPoint2, right: '<--- Top drive set to stall at', rightYellow: true },
+                { label: 'Top Drive Set Point (ftlbs)', mid: topDriveSetPoint(formData4), right: '<--- Top drive set to stall at', midYellow: true, rightYellow: true },
                 { label: 'Actual Peak Drilling torque (ftlbs)', mid: formData4.actualPeakTorque2, right: '<--- measured on bottom drilling (on-going)', rightYellow: true },
                 { label: 'Set vs. Actual Torque Buffer (ftlbs)', mid: torqueBuffer(formData4), right: '<--- Top Drive Set Point - Actual Peak drilling Torque (Negative number here is BAD!!!)', midYellow: true, midRed: true, rightYellow: true, rightRed: true },
                 { label: 'RCD Element (In/Out)', mid: formData4.rcdElement2, right: '', rightYellow: true },

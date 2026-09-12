@@ -9,7 +9,10 @@ import {
   Radio,
 } from '@mui/material';
 import { RigUWIContext } from '../contexts/RigUWIContext';
-import { torqueBuffer } from '../calculations';
+import { topDriveSetPoint, torqueBuffer } from '../calculations';
+
+// Fields whose value is derived rather than typed (see calculations.js).
+const COMPUTED = { topDriveSetPoint, torqueBuffer };
 
 export default function Last12HoursForm() {
   const { formData4, setFormData4 } = useContext(RigUWIContext);
@@ -40,7 +43,8 @@ export default function Last12HoursForm() {
     {
       label: 'Top Drive Set Point (ftlbs)',
       name: 'topDriveSetPoint',
-      help: 'Top drive set to stall at'
+      help: 'Top drive set to stall at',
+      computed: true,
     },
     {
       label: 'Actual Peak Drilling torque (ftlbs)',
@@ -163,10 +167,7 @@ export default function Last12HoursForm() {
           );
         }
 
-        let value = formData4[name+'2'];
-        if (name === "torqueBuffer") {
-          value = torqueBuffer(formData4);
-        }
+        const value = COMPUTED[name] ? COMPUTED[name](formData4) : formData4[name+'2'];
 
         return (
         <Fragment key={name}>

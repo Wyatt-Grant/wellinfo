@@ -7,9 +7,13 @@ export const num = (v) => {
   return Number.isFinite(n) ? n : 0;
 };
 
+// Last 12 Hours: Top Drive Set Point = Off bottom torque + 80% of weakest BHA connection
+export const topDriveSetPoint = (formData4) =>
+  num(formData4.offBottomTorque2) + num(formData4.weakestBHAConnection2);
+
 // Last 12 Hours: Set vs. Actual Torque Buffer = Top Drive Set Point - Actual Peak Drilling torque
 export const torqueBuffer = (formData4) =>
-  num(formData4.topDriveSetPoint2) - num(formData4.actualPeakTorque2);
+  topDriveSetPoint(formData4) - num(formData4.actualPeakTorque2);
 
 // Well Class: Required Intermediate Casing Pressure Test = 67% of BHP + Cement U-tube differential
 export const requiredIntCasingTest = (formData7) =>
