@@ -2,135 +2,115 @@ import React, { createContext, useState, useEffect } from 'react';
 
 export const RigUWIContext = createContext();
 
+// General Well Info
+const DEFAULT_FORM_DATA = {
+  rigUWI: '',
+  wellOnPad: '',
+  moveDateType: '',
+  currentOperation: '',
+  simOps: '',
+  simOps2: '',
+  starsSite: '',
+  starsSite2: '',
+  dpCumulativeMeters: '',
+};
+
+// Basic Well design
+const DEFAULT_FORM_DATA3 = {
+  Vertical: '',
+  Vertical2: '',
+  Monobore: '',
+  Monobore2: '',
+  IntermediateSleevesPackers: '',
+  IntermediateSleevesPackers2: '',
+  IntermediateCementedLiner: '',
+  IntermediateCementedLiner2: '',
+  PROP: '',
+  PROP2: '',
+};
+
+// Last 12 Hours: `xxx2` holds the number (middle column), `xxx` the description (right column)
+const DEFAULT_FORM_DATA4 = {
+  mudLosses: '',
+  safetyIncidents: '',
+  bhaMudProblems: '',
+  reservoirPlacementProblems: '',
+  surfaceProblems: '',
+  performanceLimiters: '',
+
+  metersDrilled2: '',
+  offBottomTorque2: '',
+  weakestBHAConnection2: '',
+  topDriveSetPoint2: '',
+  actualPeakTorque2: '',
+  rcdElement2: '',
+  mudType2: '',
+  mudWeight2: '',
+  mudLosses2: '',
+  redTaskProcedures2: '',
+  lir2: '',
+  monthlySafetyPackage2: '',
+  abcPicture2: '',
+  bhaBitFeelerGaugePicture2: '',
+  safetyIncidents2: '',
+  bhaMudProblems2: '',
+  reservoirPlacementProblems2: '',
+  surfaceProblems2: '',
+  performanceLimiters2: '',
+};
+
+// Cumulative (this well): `xxx` holds the number (middle column), `xxx2` the description (right column)
+const DEFAULT_FORM_DATA5 = {
+  mudLosses: '',
+  mudLossesPer100m: '',
+  miscLostTime: '',
+  waitOnCementers: '',
+  directionalMWDFailure: '',
+  directionalRotorStatorFailure: '',
+  directionalDriveShaftFailure: '',
+  lostTimes: [''],
+
+  mudLosses2: '',
+  mudLossesPer100m2: '',
+  miscLostTime2: '',
+  waitOnCementers2: '',
+  directionalMWDFailure2: '',
+  directionalRotorStatorFailure2: '',
+  directionalDriveShaftFailure2: '',
+  lostTimes2: [''],
+};
+
+// Well Class, Mud Weight, Pressure Testing
+const DEFAULT_FORM_DATA7 = {
+  wellClassPressure: '',
+  highestMudWeight: '',
+  requiredPressureTest: '',
+  bhp67: '',
+  cementUTube: '',
+  intCasingBurst80: '',
+};
+
+// Merge a saved blob over the defaults so fields added after the blob was
+// written come back as '' instead of undefined.
+const loadSaved = (key, defaults) => {
+  const saved = localStorage.getItem(key);
+  if (!saved) {
+    return { ...defaults };
+  }
+  try {
+    return { ...defaults, ...JSON.parse(saved) };
+  } catch (e) {
+    return { ...defaults };
+  }
+};
+
 export function RigUWIProvider({ children }) {
-  const [formData, setFormData] = useState({
-    rigUWI: '',
-    wellOnPad: '',
-    moveDateType: '',
-    currentOperation: '',
-    simOps: '',
-    simOps2: '',
-    starsSite: '',
-    starsSite2: '',
-  });
+  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
+  const [formData3, setFormData3] = useState(DEFAULT_FORM_DATA3);
+  const [formData4, setFormData4] = useState(DEFAULT_FORM_DATA4);
+  const [formData5, setFormData5] = useState(DEFAULT_FORM_DATA5);
+  const [formData7, setFormData7] = useState(DEFAULT_FORM_DATA7);
 
-  const [formData2, setFormData2] = useState({
-    Crew1AndServicesDate: '',
-    Crew1AndServices: '',
-    Crew2AndServicesDate: '',
-    Crew2AndServices: '',
-    Crew3AndServicesDate: '',
-    Crew3AndServices: '',
-    LastOBErecordableDate: '',
-    LastOBErecordable: '',
-  });
-
-  const [formData3, setFormData3] = useState({
-    Vertical: '',
-    Vertical2: '',
-    Monobore: '',
-    Monobore2: '',
-    IntermediateSleevesPackers: '',
-    IntermediateSleevesPackers2: '',
-    IntermediateCementedLiner: '',
-    IntermediateCementedLiner2: '',
-    PROP: '',
-    PROP2: '',
-  });
-
-  const [formData4, setFormData4] = useState({
-    metersDrilled: '',
-    offBottomTorque: '',
-    weakestBHAConnection: '',
-    topDriveSetPoint: '',
-    actualPeakTorque: '',
-    operationalTorqueBuffer: '',
-    avgSlideROP: '',
-    avgRotaryROP: '',
-    mudType: '',
-    mudWeight: '',
-    mudLosses: '',
-    redTaskProcedures: '',
-    safetyIncidents: '',
-    bhaMudProblems: '',
-    reservoirPlacementProblems: '',
-    surfaceProblems: '',
-    performanceLimiters: '',
-
-    metersDrilled2: '',
-    offBottomTorque2: '',
-    weakestBHAConnection2: '',
-    topDriveSetPoint2: '',
-    actualPeakTorque2: '',
-    operationalTorqueBuffer2: '',
-    avgSlideROP2: '',
-    avgRotaryROP2: '',
-    rcdElement2: '',
-    mudType2: '',
-    mudWeight2: '',
-    mudLosses2: '',
-    redTaskProcedures2: '',
-    safetyIncidents2: '',
-    bhaMudProblems2: '',
-    reservoirPlacementProblems2: '',
-    surfaceProblems2: '',
-    performanceLimiters2: '',
-  });
-
-  const [formData5, setFormData5] = useState({
-    mudLosses: '',
-    mudLossesPer100m: '',
-    waterHauled: '',
-    cumulativeLostTime: '',
-    lostTimes: [''],
-    lostTime1: '',
-    lostTime2: '',
-    lostTime3: '',
-    lostTime4: '',
-    lostTime5: '',
-    lostTime6: '',
-    lostTime7: '',
-    lostTime8: '',
-    lostTime9: '',
-    waitOnCementers: '',
-    directionalMWDFailure: '',
-    directionalRotorStatorFailure: '',
-    directionalDriveShaftFailure: '',
-
-    mudLosses2: '',
-    mudLossesPer100m2: '',
-    waterHauled2: '',
-    cumulativeLostTime2: '',
-    lostTimes2: [''],
-    lostTime12: '',
-    lostTime22: '',
-    lostTime32: '',
-    lostTime42: '',
-    lostTime52: '',
-    lostTime62: '',
-    lostTime72: '',
-    lostTime82: '',
-    lostTime92: '',
-    waitOnCementers2: '',
-    directionalMWDFailure2: '',
-    directionalRotorStatorFailure2: '',
-    directionalDriveShaftFailure2: '',
-  });
-
-  const [formData6, setFormData6] = useState({
-    dpCumulativeMeters: '',
-    waitOnCementersHrs: '',
-    directionalMWDFailureHrs: '',
-    directionalRotorStatorFailureHrs: '',
-    directionalDriveShaftFailureHrs: '',
-
-    dpCumulativeMeters2: '',
-    waitOnCementersHrs2: '',
-    directionalMWDFailureHrs2: '',
-    directionalRotorStatorFailureHrs2: '',
-    directionalDriveShaftFailureHrs2: '',
-  });
-  
   // Load rigUWI from localStorage on first load
   useEffect(() => {
     const savedRigUWI = localStorage.getItem('rigUWI');
@@ -145,184 +125,32 @@ export function RigUWIProvider({ children }) {
       localStorage.setItem('rigUWI', formData.rigUWI);
     }
   }, [formData.rigUWI]);
-  
+
   // Load the rest of form data when rigUWI changes
   useEffect(() => {
     if (formData.rigUWI) {
-      const savedData = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata`);
-      const savedData2 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata2`);
-      const savedData3 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata3`);
-      const savedData4 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata4`);
-      const savedData5 = localStorage.getItem(`wellForm-${formData.rigUWI}-savedata5`);
-      const savedData6 = localStorage.getItem(`wellForm-savedata6`);  
-      
-        
-      if (savedData) {
-        setFormData(JSON.parse(savedData));
-        console.log(savedData);
-      } else {
-        setFormData((prev) => ({
-          ...prev,
-          wellOnPad: '',
-          moveDateType: '',
-          currentOperation: '',
-          simOps: '',
-          simOps2: '',
-          starsSite: '',
-          starsSite2: '',
-        }));
-      }
-      if (savedData2) {
-        setFormData2(JSON.parse(savedData2));
-      } else {
-        setFormData2((prev) => ({
-          ...prev,
-          Crew1AndServicesDate: '',
-          Crew1AndServices: '',
-          Crew2AndServicesDate: '',
-          Crew2AndServices: '',
-          Crew3AndServicesDate: '',
-          Crew3AndServices: '',
-          LastOBErecordableDate: '',
-          LastOBErecordable: '',
-        }));
-      }
-      if (savedData3) {
-        setFormData3(JSON.parse(savedData3));
-      } else {
-        setFormData3((prev) => ({
-          ...prev,
-          Vertical: '',
-          Vertical2: '',
-          Monobore: '',
-          Monobore2: '',
-          IntermediateSleevesPackers: '',
-          IntermediateSleevesPackers2: '',
-          IntermediateCementedLiner: '',
-          IntermediateCementedLiner2: '',
-          PROP: '',
-          PROP2: '',
-        }));
-      }
-      if (savedData4) {
-        setFormData4(JSON.parse(savedData4));
-      } else {
-        setFormData4((prev) => ({
-          ...prev,
-          metersDrilled: '',
-          offBottomTorque: '',
-          weakestBHAConnection: '',
-          topDriveSetPoint: '',
-          actualPeakTorque: '',
-          operationalTorqueBuffer: '',
-          avgSlideROP: '',
-          avgRotaryROP: '',
-          mudType: '',
-          mudWeight: '',
-          mudLosses: '',
-          redTaskProcedures: '',
-          safetyIncidents: '',
-          bhaMudProblems: '',
-          reservoirPlacementProblems: '',
-          surfaceProblems: '',
-          performanceLimiters: '',
+      const rig = formData.rigUWI;
 
-          metersDrilled2: '',
-          offBottomTorque2: '',
-          weakestBHAConnection2: '',
-          topDriveSetPoint2: '',
-          actualPeakTorque2: '',
-          operationalTorqueBuffer2: '',
-          avgSlideROP2: '',
-          avgRotaryROP2: '',
-          rcdElement2: '',
-          mudType2: '',
-          mudWeight2: '',
-          mudLosses2: '',
-          redTaskProcedures2: '',
-          safetyIncidents2: '',
-          bhaMudProblems2: '',
-          reservoirPlacementProblems2: '',
-          surfaceProblems2: '',
-          performanceLimiters2: '',
-        }));
-      }
-      if (savedData5) {
-        setFormData5(JSON.parse(savedData5));
-      } else {
-        setFormData5((prev) => ({
-          ...prev,
-          mudLosses: '',
-          mudLossesPer100m: '',
-          waterHauled: '',
-          cumulativeLostTime: '',
-          lostTimes: [''],
-          lostTime1: '',
-          lostTime2: '',
-          lostTime3: '',
-          lostTime4: '',
-          lostTime5: '',
-          lostTime6: '',
-          lostTime7: '',
-          lostTime8: '',
-          lostTime9: '',
-          waitOnCementers: '',
-          directionalMWDFailure: '',
-          directionalRotorStatorFailure: '',
-          directionalDriveShaftFailure: '',
+      const loaded = loadSaved(`wellForm-${rig}-savedata`, DEFAULT_FORM_DATA);
+      setFormData({ ...loaded, rigUWI: rig });
+      setFormData3(loadSaved(`wellForm-${rig}-savedata3`, DEFAULT_FORM_DATA3));
+      setFormData4(loadSaved(`wellForm-${rig}-savedata4`, DEFAULT_FORM_DATA4));
 
-          mudLosses2: '',
-          mudLossesPer100m2: '',
-          waterHauled2: '',
-          cumulativeLostTime2: '',
-          lostTimes2: [''],
-          lostTime12: '',
-          lostTime22: '',
-          lostTime32: '',
-          lostTime42: '',
-          lostTime52: '',
-          lostTime62: '',
-          lostTime72: '',
-          lostTime82: '',
-          lostTime92: '',
-          waitOnCementers2: '',
-          directionalMWDFailure2: '',
-          directionalRotorStatorFailure2: '',
-          directionalDriveShaftFailure2: '',
-        }));
-      }
-      if (savedData6) {
-        setFormData6(JSON.parse(savedData6));
-      } else {
-        setFormData6((prev) => ({
-          ...prev,
-          dpCumulativeMeters: '',
-          waitOnCementersHrs: '',
-          directionalMWDFailureHrs: '',
-          directionalRotorStatorFailureHrs: '',
-          directionalDriveShaftFailureHrs: '',
+      const loaded5 = loadSaved(`wellForm-${rig}-savedata5`, DEFAULT_FORM_DATA5);
+      if (!Array.isArray(loaded5.lostTimes)) loaded5.lostTimes = [];
+      if (!Array.isArray(loaded5.lostTimes2)) loaded5.lostTimes2 = [];
+      setFormData5(loaded5);
 
-          dpCumulativeMeters2: '',
-          waitOnCementersHrs2: '',
-          directionalMWDFailureHrs2: '',
-          directionalRotorStatorFailureHrs2: '',
-          directionalDriveShaftFailureHrs2: '',
-        }));
-      }
+      setFormData7(loadSaved(`wellForm-${rig}-savedata7`, DEFAULT_FORM_DATA7));
     }
   }, [formData.rigUWI]);
-  
+
   // Save all form data (including rigUWI) to rig-specific localStorage
   useEffect(() => {
     if (formData.rigUWI) {
       localStorage.setItem(`wellForm-${formData.rigUWI}-savedata`, JSON.stringify(formData));
     }
   }, [formData]);
-  useEffect(() => {
-    if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata2`, JSON.stringify(formData2));
-    }
-  }, [formData2]);
   useEffect(() => {
     if (formData.rigUWI) {
       localStorage.setItem(`wellForm-${formData.rigUWI}-savedata3`, JSON.stringify(formData3));
@@ -340,19 +168,17 @@ export function RigUWIProvider({ children }) {
   }, [formData5]);
   useEffect(() => {
     if (formData.rigUWI) {
-      localStorage.setItem(`wellForm-savedata6`, JSON.stringify(formData6));
+      localStorage.setItem(`wellForm-${formData.rigUWI}-savedata7`, JSON.stringify(formData7));
     }
-  }, [formData6]);
-
+  }, [formData7]);
 
   return (
     <RigUWIContext.Provider value={{
       formData, setFormData,
-      formData2, setFormData2,
       formData3, setFormData3,
       formData4, setFormData4,
       formData5, setFormData5,
-      formData6, setFormData6,
+      formData7, setFormData7,
       }}>
       {children}
     </RigUWIContext.Provider>

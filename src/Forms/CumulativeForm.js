@@ -7,12 +7,14 @@ import {
 } from '@mui/material';
 import { RigUWIContext } from '../contexts/RigUWIContext';
 import Delete from '@mui/icons-material/Delete';
+import { cumulativeLostTime } from '../calculations';
 
 export default function CumulativeForm() {
   const { formData5, setFormData5 } = useContext(RigUWIContext);
 
   const numericFields = [
     'lostTimes',
+    'miscLostTime',
     'waitOnCementers',
     'directionalMWDFailure',
     'directionalRotorStatorFailure',
@@ -45,117 +47,67 @@ export default function CumulativeForm() {
     }));
   };
 
+  // Number goes in `name` (middle column of the report); the "Describe" box
+  // goes in `name + '2'` (right column of the report).
   const textFields = [
-    { 
-      label: 'Mud Losses (m3)', 
-      name: 'mudLosses', 
-      help: 'Start at "zero" for any new mud system type and/or hole section'
+    {
+      label: 'Mud Losses (m3)',
+      name: 'mudLosses',
+      help: 'Invert/KCL/Silicate/Lateral mud. Start at "zero" for any new mud system type and/or hole section'
     },
-    { 
-      label: 'Mud Losses (m3/100m)', 
-      name: 'mudLossesPer100m', 
+    {
+      label: 'Mud Losses (m3/100m)',
+      name: 'mudLossesPer100m',
+      help: 'Invert/KCL/Silicate/Lateral mud'
+    },
+    {
+      label: 'Cumulative Lost time (hrs)',
+      name: 'cumulativeLostTime',
+      help: 'This is the sum of lost time entries below',
+      computed: true,
+    },
+    {
+      label: 'Misc. Lost time',
+      name: 'miscLostTime',
+      help: 'EX: Detail is entered in WellView as individual "PSP" (Problem, Solution, Proposed Solution)'
+    },
+    {
+      label: 'Wait on Cementers (Lost time)',
+      name: 'waitOnCementers',
       help: ''
     },
-    { 
-      label: 'Cumulative Lost time (hrs)', 
-      name: 'cumulativeLostTime', 
-      help: ''
-    },
-    // { 
-    //   label: 'Lost time #1', 
-    //   name: 'lostTime1', 
-    //   help: 'EX: Hit Gravel @ 65m, circ and condition mud. Jul 06 F/ 18:45 - 19:30'
-    // },
-    // { 
-    //   label: 'Lost time #2', 
-    //   name: 'lostTime2', 
-    //   help: ''
-    // },
-    // { 
-    //   label: 'Lost time #3', 
-    //   name: 'lostTime3', 
-    //   help: ''
-    // },
-    // { 
-    //   label: 'Lost time #4', 
-    //   name: 'lostTime4', 
-    //   help: ''
-    // },
-    // { 
-    //   label: 'Lost time #5', 
-    //   name: 'lostTime5', 
-    //   help: ''
-    // },
-    // { 
-    //   label: 'Lost time #6', 
-    //   name: 'lostTime6', 
-    //   help: ''
-    // },
-    // { 
-    //   label: 'Lost time #7', 
-    //   name: 'lostTime7', 
-    //   help: ''
-    // },
-    // { 
-    //   label: 'Lost time #8', 
-    //   name: 'lostTime8', 
-    //   help: ''
-    // },
-    // { 
-    //   label: 'Lost time #9', 
-    //   name: 'lostTime9', 
-    //   help: ''
-    // },
-    { 
-      label: 'Lost times', 
-      name: 'lostTimes', 
-      help: ''
-    },
-    { 
-      label: 'Wait on Cementers (Lost time #10)', 
-      name: 'waitOnCementers', 
-      help: ''
-    },
-    { 
-      label: 'Directional - MWD Failure (Lost time #11)', 
-      name: 'directionalMWDFailure', 
+    {
+      label: 'Directional - MWD Failure (Lost time)',
+      name: 'directionalMWDFailure',
       help: 'EX: Troubleshoot MWD due to weak signal. Jul 11 F/ 02:00 - 02:30'
     },
-    { 
-      label: 'Directional- Rotor/Stator Failure (Lost time #12)', 
-      name: 'directionalRotorStatorFailure', 
+    {
+      label: 'Directional- Rotor/Stator Failure (Lost time)',
+      name: 'directionalRotorStatorFailure',
       help: ''
     },
-    { 
-      label: 'Directional - Drive Shaft Failure (Lost time #13)', 
-      name: 'directionalDriveShaftFailure', 
+    {
+      label: 'Directional - Drive Shaft Failure (Lost Time)',
+      name: 'directionalDriveShaftFailure',
       help: ''
+    },
+    {
+      label: 'Lost time',
+      name: 'lostTimes',
+      help: 'EX: Hit Gravel @ 65m, circ and condition mud. Jul 06 F/ 18:45 - 19:30'
     },
   ];
 
   if (formData5 === null) {
     return;
   }
-  
 
+  const totalLostTime = cumulativeLostTime(formData5);
 
-  const total = parseFloat(formData5['waitOnCementers'] === '' ? 0 : formData5['waitOnCementers'])
-              + parseFloat(formData5['directionalMWDFailure'] === '' ? 0 : formData5['directionalMWDFailure'])
-              + parseFloat(formData5['directionalRotorStatorFailure'] === '' ? 0 : formData5['directionalRotorStatorFailure'])
-              + parseFloat(formData5['directionalDriveShaftFailure'] === '' ? 0 : formData5['directionalDriveShaftFailure']);
-  
-  const totalLostTime = formData5.lostTimes.reduce(
-    (sum, val) => sum + parseFloat(val || 0),
-    0
-  ) + total;
-            
   const addLostTime = () => {
     setFormData5((prev) => ({
       ...prev,
       lostTimes: [...prev.lostTimes, ''],
-    }));
-    setFormData5((prev) => ({
-      ...prev,
       lostTimes2: [...prev.lostTimes2, ''],
     }));
   }
@@ -164,9 +116,6 @@ export default function CumulativeForm() {
     setFormData5((prev) => ({
       ...prev,
       lostTimes: prev.lostTimes.filter((_, i) => i !== index),
-    }));
-    setFormData5((prev) => ({
-      ...prev,
       lostTimes2: prev.lostTimes2.filter((_, i) => i !== index),
     }));
   };
@@ -179,31 +128,19 @@ export default function CumulativeForm() {
       }}
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
-      {textFields.map(({ label, name, help }) => {
-        let multiFiled = false;
-        if (name === "mudLossesPer100m"
-          || name === "cumulativeLostTime") {
-          multiFiled = true;
-        }
-
+      {textFields.map(({ label, name, help, computed }) => {
         if (name === "lostTimes") {
           if (formData5[name].length === 0) {
-            return (<>
+            return (<Fragment key={name}>
               <Button onClick={addLostTime}>Add Lost time</Button>
               <div style={{ width: '48%' }}></div>
-            </>);
+            </Fragment>);
           }
           return formData5[name].map((item, index) => (
             <Fragment key={index}>
               <TextField
                 type="number"
-                disabled={name === 'cumulativeLostTime'}
-                sx={{
-                  width: '44%',
-                  '& .MuiInputBase-root': {
-                    backgroundColor: name === 'cumulativeLostTime' ? '#fff9c4' : '#ffffff',
-                  },
-                }}
+                sx={{ width: '44%' }}
                 name={name}
                 value={item}
                 onChange={(e) => handleLostTimeChange(e, index)}
@@ -217,7 +154,7 @@ export default function CumulativeForm() {
                 type="text"
                 sx={{ width: '48%' }}
                 name={`${name}2`}
-                value={formData5[`${name}2`][index]}
+                value={formData5[`${name}2`][index] || ''}
                 onChange={(e) => handleLostTimeChange(e, index)}
                 fullWidth
                 label={'Describe'}
@@ -239,23 +176,24 @@ export default function CumulativeForm() {
           <Fragment key={name}>
             <TextField
               type={label.includes('Lost time') ? 'number' : 'text'}
-              disabled={name==='cumulativeLostTime'}
+              disabled={computed}
               sx={{
-                width: multiFiled ? '32%' : '48%',
+                width: computed ? '32%' : '48%',
                 '& .MuiInputBase-root': {
-                  backgroundColor: (name === "cumulativeLostTime") ? '#fff9c4' : '#ffffff',
+                  backgroundColor: computed ? '#fff9c4' : '#ffffff',
                 }
               }}
               name={name}
-              value={name==='cumulativeLostTime' ? totalLostTime : formData5[name]}
+              value={computed ? totalLostTime : formData5[name]}
               onChange={handleChange}
               fullWidth
               label={label}
+              helperText={computed ? help : undefined}
               size="small"
-              margin="dense" 
+              margin="dense"
               multiline
             />
-            {!multiFiled &&
+            {!computed &&
             <TextField
               type={'text'}
               sx={{ width: '48%' }}
@@ -264,12 +202,12 @@ export default function CumulativeForm() {
               onChange={handleChange}
               fullWidth
               helperText={help}
-              label={(name === 'waitOnCementers' || name === 'directionalRotorStatorFailure' || name === 'directionalDriveShaftFailure') ? 'Describe' : undefined}
+              label={'Describe'}
               size="small"
-              margin="dense" 
+              margin="dense"
               multiline
             />}
-            {(name === "mudLossesPer100m" || name === "cumulativeLostTime") && <Box sx={{ width: '64%' }} />}
+            {computed && <Box sx={{ width: '64%' }} />}
           </Fragment>
       )})}
     </Box>

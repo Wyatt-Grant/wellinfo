@@ -1,22 +1,27 @@
 import { useState } from 'react';
 import GeneralWellInfoForm from './Forms/GeneralWellInfoForm';
-import MonthlySafetyStandDownForm from './Forms/MonthlySafetyStandDownForm';
 import BasicWellDesignForm from './Forms/BasicWellDesignForm';
+import WellClassForm from './Forms/WellClassForm';
 import Last12HoursForm from './Forms/Last12HoursForm';
 import CumulativeForm from './Forms/CumulativeForm';
-import CumulativeForm2 from './Forms/Cumulative2Form';
 import MyAppBar from './MyAppBar';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { RigUWIProvider } from './contexts/RigUWIContext';
-import { AdapterMoment  } from '@mui/x-date-pickers/AdapterMoment';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Button from '@mui/material/Button';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+const sections = [
+  { title: 'General Well Info', left: '-360px', Form: GeneralWellInfoForm },
+  { title: 'Basic Well Design', left: '-350px', Form: BasicWellDesignForm },
+  { title: 'Well Class, Mud Weight, Pressure Testing', left: '-180px', Form: WellClassForm },
+  { title: 'Last 12 Hours', left: '-383px', Form: Last12HoursForm },
+  { title: 'Cumulative (this well)', left: '-320px', Form: CumulativeForm },
+];
+
 function App() {
-  const [collapsed, setCollapsed] = useState([true,true,true,true,true,true]);
+  const [collapsed, setCollapsed] = useState(sections.map(() => true));
 
   const col = (c) => setCollapsed(prev => {
     const newCollapsed = [...prev];
@@ -25,101 +30,34 @@ function App() {
   });
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <RigUWIProvider>
-        <Box sx={{ flexGrow: 1 }}>
-          <MyAppBar />
-            <br/>
-            <br/>
-            <br/>
-          <div id="pdf-container" style={{ padding: '10px', textAlign: 'center' }}>
-            <Button
-              size="large"
-              color="inherit"
-              sx={{textTransform: 'lowercase', left: '-360px'}}
-              onClick={() => col(0)}
-              >
-                {collapsed[0] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
-                  General Well Info
-                </Typography>
-            </Button>
-            <br/>
-            {collapsed[0] && <GeneralWellInfoForm></GeneralWellInfoForm>}
-            <br />
-            <Button
-              size="large"
-              color="inherit"
-              sx={{textTransform: 'lowercase', left: '-274px'}}
-              onClick={() => col(1)}
-              >
-                {collapsed[1] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
-                  Monthly Safety Stand Down
-                </Typography>
-            </Button>
-            <br/>
-            {collapsed[1] && <MonthlySafetyStandDownForm></MonthlySafetyStandDownForm>}
-            <br/>
-            <Button
-              size="large"
-              color="inherit"
-              sx={{textTransform: 'lowercase', left: '-350px'}}
-              onClick={() => col(2)}
-              >
-                {collapsed[2] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
-                  Basic Well Design
-                </Typography>
-            </Button>
-            <br/>
-            {collapsed[2] && <BasicWellDesignForm></BasicWellDesignForm>}
-            <br/>
-            <Button
-              size="large"
-              color="inherit"
-              sx={{textTransform: 'lowercase', left: '-383px'}}
-              onClick={() => col(3)}
-              >
-                {collapsed[3] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
-                  Last 12 Hours
-                </Typography>
-            </Button>
-            <br/>
-            {collapsed[3] && <Last12HoursForm></Last12HoursForm>}
-            <br/>
-            <Button
-              size="large"
-              color="inherit"
-              sx={{textTransform: 'lowercase', left: '-320px'}}
-              onClick={() => col(4)}
-              >
-                {collapsed[4] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
-                  Cumulative (this well)
-                </Typography>
-            </Button>
-            <br/>
-            {collapsed[4] && <CumulativeForm></CumulativeForm>}
-            <br/>
-            <Button
-              size="large"
-              color="inherit"
-              sx={{textTransform: 'lowercase', left: '-320px'}}
-              onClick={() => col(5)}
-              >
-                {collapsed[5] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
-                <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
-                  Cumulative (project)
-                </Typography>
-            </Button>
-            <br/>
-            {collapsed[5] && <CumulativeForm2></CumulativeForm2>}
-          </div>
-        </Box>
-      </RigUWIProvider>
-    </LocalizationProvider>
+    <RigUWIProvider>
+      <Box sx={{ flexGrow: 1 }}>
+        <MyAppBar />
+          <br/>
+          <br/>
+          <br/>
+        <div id="pdf-container" style={{ padding: '10px', textAlign: 'center' }}>
+          {sections.map(({ title, left, Form }, i) => (
+            <div key={title}>
+              <Button
+                size="large"
+                color="inherit"
+                sx={{textTransform: 'lowercase', left}}
+                onClick={() => col(i)}
+                >
+                  {collapsed[i] ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
+                  <Typography variant="h4" gutterBottom style={{position: 'relative', top: '9px'}}>
+                    {title}
+                  </Typography>
+              </Button>
+              <br/>
+              {collapsed[i] && <Form />}
+              <br/>
+            </div>
+          ))}
+        </div>
+      </Box>
+    </RigUWIProvider>
   );
 }
 

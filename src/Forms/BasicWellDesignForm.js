@@ -68,6 +68,7 @@ export default function BasicWellDesignForm() {
           />
           <TextField
             sx={{ width: '48%' }}
+            label="Describe"
             name={name+'2'}
             value={formData3[name+'2']}
             onChange={handleChange}

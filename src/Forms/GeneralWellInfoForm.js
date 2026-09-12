@@ -18,6 +18,12 @@ export default function GeneralWellInfoForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Number only, but allow thousands separators and a decimal point (e.g. 10,126)
+  const handleNumberChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value.replace(/[^0-9.,]/g, '') }));
+  };
+
   const textFields = [
     {
       label: 'Rig & UWI',
@@ -50,7 +56,6 @@ export default function GeneralWellInfoForm() {
       component="form"
       onSubmit={(e) => {
         e.preventDefault();
-        console.log('Submitted:', formData);
       }}
       sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: 1, width: 1024}}
     >
@@ -69,6 +74,20 @@ export default function GeneralWellInfoForm() {
           multiline
         />
       ))}
+
+      <TextField
+        inputMode="numeric"
+        sx={{ width: '48%' }}
+        label="DP cumulative meters since last inspection (m)"
+        name="dpCumulativeMeters"
+        value={formData.dpCumulativeMeters}
+        onChange={handleNumberChange}
+        fullWidth
+        helperText="EX: Planned 80,000m inspection frequency"
+        size="small"
+        margin="dense"
+      />
+      <Box sx={{ width: '48%' }} />
 
       <FormControl sx={{ width: '48%' }}>
         <FormLabel>Sim-ops within 25m</FormLabel>
