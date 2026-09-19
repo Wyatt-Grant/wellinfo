@@ -18,9 +18,19 @@ export default function SaveButton() {
         html2pdf().set({
             margin: 4,
             filename: '5am-5pm.pdf',
-            // render at 2x so 1px table borders come out uniform instead of anti-aliased away
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
+            // PNG, not the default JPEG: chroma subsampling smears thin black text on white.
+            image: { type: 'png', quality: 1 },
+            html2canvas: {
+                // ~385 DPI on a letter page. Keeps 1px table borders uniform instead of
+                // anti-aliased away, and text crisp when zoomed. Drop to 3 (~290 DPI) if
+                // the file gets too big.
+                scale: 4,
+                letterRendering: true,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+            },
+            // deflate the (large) PNG so the higher scale doesn't balloon the file
+            jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait', compress: true },
         }).from(wrapper).save();
     }
 
