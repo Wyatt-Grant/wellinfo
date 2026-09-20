@@ -61,6 +61,8 @@ export default function SaveButton() {
     const buildSections = () => {
         const str = (v) => (v === undefined || v === null) ? '' : String(v);
         const mudNote = 'Invert/KCL/Silicate/Lateral mud';
+        const pspNote = 'Detail is entered in WellView as individual "PSP" (Problem, Solution, Proposed Solution)';
+        const withPsp = (v) => [str(v), pspNote].filter(Boolean).join(' ');
 
         const general = {
             title: 'General\nWell\nInfo',
@@ -135,10 +137,10 @@ export default function SaveButton() {
                 { label: 'Mud Losses (m3/100m)', mid: formData5.mudLossesPer100m, right: mudNote, rightYellow: true },
                 { label: 'Cumulative Lost time (hrs)', mid: cumulativeLostTime(formData5), right: '<--- This is the sum of lost time entries below', labelRed: true, midYellow: true, midRed: true, rightYellow: true, rightRed: true },
                 { label: 'Misc. Lost time', mid: formData5.miscLostTime, right: formData5.miscLostTime2, rightYellow: true },
-                { label: 'Wait on Cementers (Lost time)', mid: formData5.waitOnCementers, right: formData5.waitOnCementers2, rightYellow: true },
-                { label: 'Directional - MWD Failure (Lost time)', mid: formData5.directionalMWDFailure, right: formData5.directionalMWDFailure2, rightYellow: true },
-                { label: 'Directional- Rotor/Stator Failure (Lost time)', mid: formData5.directionalRotorStatorFailure, right: formData5.directionalRotorStatorFailure2, rightYellow: true },
-                { label: 'Directional - Drive Shaft Failure (Lost Time)', mid: formData5.directionalDriveShaftFailure, right: formData5.directionalDriveShaftFailure2, rightYellow: true },
+                { label: 'Wait on Cementers (Lost time)', mid: formData5.waitOnCementers, right: withPsp(formData5.waitOnCementers2), rightYellow: true },
+                { label: 'Directional - MWD Failure (Lost time)', mid: formData5.directionalMWDFailure, right: withPsp(formData5.directionalMWDFailure2), rightYellow: true },
+                { label: 'Directional- Rotor/Stator Failure (Lost time)', mid: formData5.directionalRotorStatorFailure, right: withPsp(formData5.directionalRotorStatorFailure2), rightYellow: true },
+                { label: 'Directional - Drive Shaft Failure (Lost Time)', mid: formData5.directionalDriveShaftFailure, right: withPsp(formData5.directionalDriveShaftFailure2), rightYellow: true },
                 ...(formData5.lostTimes || []).map((v, i) => ({
                     label: 'Lost Time',
                     mid: v,
