@@ -136,7 +136,7 @@ export default function SaveButton() {
                 { label: 'Mud Losses (m3)', mid: formData5.mudLosses, right: mudNote, rightYellow: true },
                 { label: 'Mud Losses (m3/100m)', mid: formData5.mudLossesPer100m, right: mudNote, rightYellow: true },
                 { label: 'Cumulative Lost time (hrs)', mid: cumulativeLostTime(formData5), right: '<--- This is the sum of lost time entries below', labelRed: true, midYellow: true, midRed: true, rightYellow: true, rightRed: true },
-                { label: 'Misc. Lost time', mid: formData5.miscLostTime, right: formData5.miscLostTime2, rightYellow: true },
+                { label: 'Misc. Lost time', mid: formData5.miscLostTime, right: withPsp(formData5.miscLostTime2), rightYellow: true },
                 { label: 'Wait on Cementers (Lost time)', mid: formData5.waitOnCementers, right: withPsp(formData5.waitOnCementers2), rightYellow: true },
                 { label: 'Directional - MWD Failure (Lost time)', mid: formData5.directionalMWDFailure, right: withPsp(formData5.directionalMWDFailure2), rightYellow: true },
                 { label: 'Directional- Rotor/Stator Failure (Lost time)', mid: formData5.directionalRotorStatorFailure, right: withPsp(formData5.directionalRotorStatorFailure2), rightYellow: true },
