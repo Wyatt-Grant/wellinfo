@@ -115,7 +115,7 @@ export default function SaveButton() {
                 { label: 'Mud weight (kg/m3)', mid: formData4.mudWeight2, right: '', rightYellow: true },
                 { label: 'Mud Losses (m3)', mid: formData4.mudLosses2, right: mudNote, rightYellow: true },
                 { label: '# of red task procedures followed (minimum 1/shift)', mid: formData4.redTaskProcedures2, right: requirementOBE, rightYellow: true, rightRed: true },
-                { label: 'LIR (minimum 1/shift)', mid: formData4.lir2, right: requirementOBE, rightYellow: true, rightRed: true },
+                { label: 'LIR (2/shift or 1 LIR + 1 Red Task)', mid: formData4.lir2, right: requirementOBE, rightYellow: true, rightRed: true },
                 { label: 'Monthly Safety Package (When sent to rigs)', mid: formData4.monthlySafetyPackage2, right: requirementOBE, rightYellow: true, rightRed: true },
                 { label: 'ABC Picture (minimum 1/shift)', mid: formData4.abcPicture2, right: requirementDrilling, rightYellow: true, rightRed: true },
                 { label: 'BHA/Bit/Feeler Guage Picture (per bha)', mid: formData4.bhaBitFeelerGaugePicture2, right: requirementDrilling, rightYellow: true, rightRed: true },

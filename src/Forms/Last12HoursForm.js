@@ -85,7 +85,7 @@ export default function Last12HoursForm() {
       help: '"OBE Corporate" Requirement. Ask crews what will be doing on this shift that requires a red task procedure. Expectation is 14/week/rig'
     },
     {
-      label: 'LIR (minimum 1/shift)',
+      label: 'LIR (2/shift or 1 LIR + 1 Red Task)',
       name: 'lir',
       help: '"OBE Corporate" Requirement'
     },

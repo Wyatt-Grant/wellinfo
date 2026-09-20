@@ -34,7 +34,7 @@ export const WELL_CLASS_FIELDS = [
     help: 'Example: (1700-1000)*0.00981*2200= 15,107kPa',
   },
   {
-    label: 'Required Intermediate Casing Pressure Test (wet cement)',
+    label: 'Minimum required Intermediate Casing Pressure Test (wet cement)',
     name: 'requiredIntCasingTest',
     help: 'Discuss this with your Drilling Superintendent',
     computed: true,
